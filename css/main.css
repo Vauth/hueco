@@ -1,0 +1,147 @@
+::selection {
+    background: white;
+    color: black;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+body {
+    font-size: 11pt;
+    font-family: "Liberation Mono";
+    color: white;
+    background-color: #23252E;
+}
+#container {
+    padding: 1em 1em 1em 1em;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+#cmdline {
+    outline: none;
+    background-color: transparent;
+    margin: 0;
+    width: 100%;
+    font: inherit;
+    border: none;
+    color: inherit;
+}
+#output {
+    clear: both;
+    width: 100%;
+}
+#prompt {
+	font-weight: bold;
+    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-orient: vertical;
+    display: -moz-box;
+    -moz-box-pack: center;
+    -moz-box-orient: vertical;
+    display: box;
+    box-pack: center;
+    box-orient: vertical;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+.prompt-color {
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    color: #277EE2;
+}
+.input-line {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: horizontal;
+    box-align: stretch;
+    clear: both;
+}
+.input-line > div:nth-child(2) {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    box-flex: 1;
+}
+
+
+/* SIDE NAV */
+
+#sidenavBtn {
+    position: absolute !important;
+    padding: 0px !important; 
+    top: 0 !important;
+    right: 0px !important;
+    font-size: 0px !important;
+}
+
+#sidenav {
+    height: 0%;
+    width: 0px;
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0;
+    overflow-x: hidden;
+    transition: 0s;
+    padding-top: 0px;
+}
+#sidenav img {
+    display: block;
+    position: absolute;
+    left: 0%;
+    transform: translateX(-50%);
+    bottom: 0px;
+    transition: 0s;
+    opacity: 0;
+}
+
+#sidenav img:focus {
+    outline: none;
+}
+
+#sidenav button {
+    padding: 8px 8px 8px 32px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 15pt;
+    color: white;
+    display: block;
+    transition: 0.3s;
+    background:none !important;
+    border:none;
+}
+#sidenav button:hover {
+    color: #442e00;
+}
+
+@media screen and (max-height: 450px) {
+    body {
+        font-size: 11pt;
+    }
+    #sidenav {
+       padding-top: 15px;
+   }
+    #sidenav a {
+       font-size: 13px;
+   }
+}
+
+@media screen and (max-width: 900px) {
+    #githubImg img {
+        transform: translateX(900px);
+    }
+
+    #container {
+        margin-right: 0;
+    }
+}
