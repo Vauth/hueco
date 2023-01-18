@@ -1,3 +1,0 @@
-RedirectMatch 404 ^/img/?$
-RedirectMatch 404 ^/js/?$
-RedirectMatch 404 ^/css/?$
