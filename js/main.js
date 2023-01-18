@@ -3,6 +3,8 @@
 /**
  * Configs
  */
+document.addEventListener('contextmenu', event => event.preventDefault());
+
 var configs = (function () {
     var instance;
     var Singleton = function (options) {
