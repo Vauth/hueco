@@ -76,6 +76,7 @@ var files = (function () {
         "mail.txt": "ivuxey@gmail.com",
         "telegram.txt": "https://feelded.t.me",
         "github.txt":"https://github.com/vauth",
+	"cloud.txt":"https://ivuxy.co",
     };
     return {
         getInstance: function (options) {
