@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Configs
+ * Configs (By odi)
  */
 document.addEventListener('contextmenu', event => event.preventDefault());
 
