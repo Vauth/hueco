@@ -157,7 +157,7 @@ var main = (function () {
         if (!(profilePic instanceof Node) || profilePic.nodeName.toUpperCase() !== "IMG") {
             throw new InvalidArgumentException("Invalid value " + profilePic + " for argument 'profilePic'.");
         }
-        (typeof user === "string" && typeof host === "string") && (this.completePrompt = user + "㉿" + host + ":~" + (root ? "#" : "$"));
+        (typeof user === "string" && typeof host === "string") && (this.completePrompt = user + "@" + host + ":~" + (root ? "#" : "$"));
         this.profilePic = profilePic;
         this.prompt = prompt;
         this.cmdLine = cmdLine;
