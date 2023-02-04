@@ -72,6 +72,7 @@ var files = (function () {
     	"welcome.txt":"Welcome to my world.",
     	"config.py":"class Production(Config): LOGGER = False",
     	".cache":"None",
+	"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
         "README.md": "My name is odi & I'm a dev (BACK-END mostly),\nI know about AIs, Pentesting & so many things.",
         "mail.txt": "ivuxey@gmail.com",
         "telegram.txt": "https://feelded.t.me",
