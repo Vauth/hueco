@@ -415,7 +415,7 @@ var main = (function () {
 
     Terminal.prototype.matrix = function (cmdComponents) {
 	location.replace('https://odium.us/matrix')
-        this.type("", this.unlock.bind(this));
+        this.type("Running...", this.unlock.bind(this));
     };	
 	
     Terminal.prototype.help = function () {
