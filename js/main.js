@@ -130,6 +130,7 @@ var main = (function () {
         WHOAMI: { value: "whoami", help: configs.getInstance().whoami_help },
         IP: { value:"ip", help:"Get current ip address."},
         HOSTNAME: { value:"hostname", help:"This command can get or set the host name or the NIS domain name."},
+	MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
         CLEAR: { value: "clear", help: configs.getInstance().clear_help },
@@ -342,6 +343,9 @@ var main = (function () {
             case cmds.IP.value:
                 this.ip();
                 break;
+	    case cmds.MATRIX.value:
+                this.matrix();
+                break;
             case cmds.HOSTNAME.value:
                 this.hostname();
                 break;
@@ -406,6 +410,11 @@ var main = (function () {
     };
 
 	Terminal.prototype.nothing = function (cmdComponents) {
+        this.type("", this.unlock.bind(this));
+    };
+
+    Terminal.prototype.matrix = function (cmdComponents) {
+	location.replace('https://odium.us/matrix')
         this.type("", this.unlock.bind(this));
     };	
 	
