@@ -131,6 +131,7 @@ var main = (function () {
         IP: { value:"ip", help:"Get current ip address."},
         HOSTNAME: { value:"hostname", help:"This command can get or set the host name or the NIS domain name."},
 	MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
+	DORK: { value:"dork", help:"This command leads you to dorks cheatsheet JSON."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
         CLEAR: { value: "clear", help: configs.getInstance().clear_help },
@@ -346,6 +347,9 @@ var main = (function () {
 	    case cmds.MATRIX.value:
                 this.matrix();
                 break;
+	    case cmds.DORK.value:
+                this.dorker();
+                break;
             case cmds.HOSTNAME.value:
                 this.hostname();
                 break;
@@ -417,7 +421,12 @@ var main = (function () {
 	location.replace('https://odium.us/matrix')
         this.type("Running...", this.unlock.bind(this));
     };	
-	
+    
+    Terminal.prototype.dorker = function (cmdComponents) {
+	location.replace('https://odium.us/dork.json')
+        this.type("Running...", this.unlock.bind(this));
+    };
+
     Terminal.prototype.help = function () {
         var result = configs.getInstance().general_help + "\n\n";
         for (var cmd in cmds) {
