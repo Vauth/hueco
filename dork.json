@@ -13,5 +13,5 @@
 	"Sub-subdomains":"site:*.*.{site}",
 	"Phpinfo":"inurl:'/phpinfo.php' {site}",
 	"File Passwords":"site:{site} intext:'connectionString' AND inurl:'web' AND ext:'config'",
-	".htaccess & Sensitive Files":"inurl:'/phpinfo.php' OR inurl:'.htaccess' OR inurl:'/.git' {site} -github",
+	".htaccess & Sensitive Files":"inurl:'/phpinfo.php' OR inurl:'.htaccess' OR inurl:'/.git' {site} -github"
 }
