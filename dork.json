@@ -1,7 +1,7 @@
 {
 	"Login Pages":"site:{site} inurl:wp- OR inurl:plugin OR inurl:upload OR inurl:download",
 	"Backdoors":"site:{site} inurl:shell OR inurl:backdoor OR inurl:wso OR inurl:cmd OR shadow OR passwd OR boot.ini OR inurl:backdoor",
-	"Install/Setup files":"site:{site} inurl:readme OR inurl:license OR inurl:install OR inurl:setup OR inurl:config",
+	"Install/Setup Files":"site:{site} inurl:readme OR inurl:license OR inurl:install OR inurl:setup OR inurl:config",
 	"Wordpress Plugins/Uploads/Downloads":"site:{site} inurl:wp- OR inurl:plugin OR inurl:upload OR inurl:download",
 	"Open Redirects":"site:{site} inurl:redir OR inurl:url OR inurl:redirect OR inurl:return OR inurl:src=http OR inurl:r=http",
 	"Files":"site:{site} ext:cgi OR ext:php OR ext:asp OR ext:aspx OR ext:jsp OR ext:jspx OR ext:swf OR ext:fla OR ext:xml",
@@ -13,5 +13,6 @@
 	"Sub-subdomains":"site:*.*.{site}",
 	"Phpinfo":"inurl:'/phpinfo.php' {site}",
 	"File Passwords":"site:{site} intext:'connectionString' AND inurl:'web' AND ext:'config'",
-	".htaccess & Sensitive Files":"inurl:'/phpinfo.php' OR inurl:'.htaccess' OR inurl:'/.git' {site} -github"
+	".htaccess & Sensitive Files":"inurl:'/phpinfo.php' OR inurl:'.htaccess' OR inurl:'/.git' {site} -github",
+	"Sensitive SQL":"intext:phpMyAdmin SQL Dump filetype:sql intext:INSERT INTO 'admin' ('id', 'user', 'password') VALUES"
 }
