@@ -15,5 +15,6 @@
 	"File Passwords":"site:{site} intext:\"connectionString\" AND inurl:\"web\" AND ext:\"config\"",
 	".htaccess & Sensitive Files":"inurl:\"/phpinfo.php\" OR inurl:\".htaccess\" OR inurl:\"/.git\" {site} -github",
 	"Sensitive SQL":"intext:phpMyAdmin SQL Dump filetype:sql intext:INSERT INTO \"admin\" (\"id\", \"user\", \"password\") VALUES",
-	"MIIS Logs":"ext:log \"Software: Microsoft Internet Information Services *.*\""
+	"MIIS Logs":"ext:log \"Software: Microsoft Internet Information Services *.*\"",
+	"Backup Files":"allintitle:\"index.of\" \"backup files\""
 }
