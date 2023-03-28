@@ -129,6 +129,7 @@ var main = (function () {
         CAT: { value: "cat", help: configs.getInstance().cat_help },
         WHOAMI: { value: "whoami", help: configs.getInstance().whoami_help },
         IP: { value:"ip", help:"Get current ip address."},
+	FCIP: { value:"fcip", help:"Fresh cloudflare IP generator ABAN."},
         HOSTNAME: { value:"hostname", help:"This command can get or set the host name or the NIS domain name."},
 	MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
 	DORK: { value:"dork", help:"This command leads you to dorks cheatsheet JSON."},
@@ -350,6 +351,9 @@ var main = (function () {
 	    case cmds.DORK.value:
                 this.dorker();
                 break;
+	    case cmds.FCIP.value:
+                this.fcip();
+                break;
             case cmds.HOSTNAME.value:
                 this.hostname();
                 break;
@@ -424,6 +428,11 @@ var main = (function () {
     
     Terminal.prototype.dorker = function (cmdComponents) {
 	location.replace('https://odium.us/dork.json')
+        this.type("Running...", this.unlock.bind(this));
+    };
+	
+    Terminal.prototype.fcip = function (cmdComponents) {
+	location.replace('https://odium.us/fcip')
         this.type("Running...", this.unlock.bind(this));
     };
 
