@@ -355,8 +355,8 @@ let numberOfWorkingIPs;
 let includeUK;
 let ipRegex;
 
-document.getElementById('max-ip').value = localStorage.getItem('max-ip') || 5;
-document.getElementById('max-latency').value = localStorage.getItem('max-latency') || 1000;
+document.getElementById('max-ip').value = localStorage.getItem('max-ip') || 10;
+document.getElementById('max-latency').value = localStorage.getItem('max-latency') || 400;
 document.getElementById('uk-cdn').checked = localStorage.getItem('include-uk') == 'true';
 document.getElementById('ip-regex').value = localStorage.getItem('ip-regex');
 
