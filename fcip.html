@@ -77,7 +77,7 @@
       width: 150px;
       font-size: 16px;
       font-weight: bold;
-      color: green;
+      color: #277EE2;
       padding: 2px;
       float: left;
     }
@@ -411,13 +411,15 @@ async function testIPs(ipList) {
       }, timeout);
       if (ch) {
         document.getElementById('test-no').innerText = `Test ${testNo}:`;
+        document.getElementById('test-no').style = `color: #277EE2; font-weight: bold;`;
         document.getElementById('ip-no').innerText = el.ip;
-        document.getElementById('ip-no').style = `color: green`;
+        document.getElementById('ip-no').style = `color: #277EE2`;
         document.getElementById('ip-try').innerText = ch;
         document.getElementById('ip-latency').innerText = Math.floor((performance.now() - startTime) / chNo) + 'ms';
       } else {
         timeout = 1.5 * maxLatency;
         document.getElementById('test-no').innerText = `Test ${testNo}:`;
+        document.getElementById('test-no').style = `color: #277EE2; font-weight: bold;`;
         document.getElementById('ip-no').innerText = el.ip;
         document.getElementById('ip-no').style = `color: red`;
         document.getElementById('ip-try').innerText = '';
@@ -464,7 +466,7 @@ async function testIPs(ipList) {
     }
   }
   document.getElementById('test-no').innerText = `Done`;
-  document.getElementById('test-no').style = `color: green; font-weight: bold;`;
+  document.getElementById('test-no').style = `color: #277EE2; font-weight: bold;`;
   document.getElementById('ip-no').innerText = '';
   document.getElementById('ip-try').innerText = '';
   document.getElementById('ip-latency').innerText = '';
