@@ -452,8 +452,8 @@ async function testIPs(ipList) {
           <td>${obj.ip}</td>
           <td>${obj.latency}ms</td>
           <td>
-            <img height="20px" src="./img/${obj.location}.png" />
-            <img height="20px" src="./img/copy.png" onclick="copyToClipboard('${obj.ip}')"/>
+            <img height="20px" src="./img/${obj.location}.png" onclick="CopySubToClipboard('${obj.ip}')"/>
+            <img height="20px" src="./img/copy.png" onclick="CopyIpToClipboard('${obj.ip}')"/>
           </td>
         </tr>`).join('\n');
       document.getElementById('result').innerHTML = tableRows;
@@ -470,9 +470,17 @@ async function testIPs(ipList) {
   document.getElementById('ip-latency').innerText = '';
 }
 
-function copyToClipboard(ip) {
+function CopyIpToClipboard(ip) {
   navigator.clipboard.writeText(ip).then(() => {
     alert('IP Successfully Copied');
+  }).catch(() => {
+    alert('Something Went Wrong');
+  });
+}
+
+function CopySubToClipboard(ip) {
+  navigator.clipboard.writeText('https://node.ivuxy.co/sub/'+ip).then(() => {
+    alert('Subscription Successfully Copied');
   }).catch(() => {
     alert('Something Went Wrong');
   });
@@ -525,7 +533,7 @@ function downloadAsJSON() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.setAttribute('href', url);
-  link.setAttribute('download', 'ip-list.json');
+  link.setAttribute('download', 'ips.json');
   link.style.display = 'none';
   document.body.appendChild(link);
   link.click();
