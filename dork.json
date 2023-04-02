@@ -17,5 +17,7 @@
 	"Sensitive SQL":"intext:phpMyAdmin SQL Dump filetype:sql intext:INSERT INTO \"admin\" (\"id\", \"user\", \"password\") VALUES",
 	"MIIS Logs":"ext:log \"Software: Microsoft Internet Information Services *.*\"",
 	"Backup Files":"allintitle:\"index.of\" \"backup files\"",
-        "Camera":"intitle:\"Network Camera\" inurl:main.cgi"
+        "Camera":"intitle:\"Network Camera\" inurl:main.cgi",
+	"Password Files":"site:{site} \"password\" filetype:doc | filetype:pdf | filetype:docx | filetype:xls | filetype:dat | filetype:log",
+	"Files Index":"intitle:\"index.of\"  | intitle:\"parent directory\""
 }
