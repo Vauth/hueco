@@ -14,6 +14,7 @@
 <body bgcolor="#277EE2">
   <canvas></canvas>
   <script type="text/javascript">
+	  setTimeout(function() {
 	  	document.addEventListener('contextmenu', event => event.preventDefault());
 		var canvas = document.querySelector('canvas'),
 			ctx = canvas.getContext('2d');
@@ -41,6 +42,7 @@
 		  }
 		}
 		setInterval(draw, 33);
+	}, 3000);
   </script>
 </body>
 </html>
