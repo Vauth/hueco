@@ -125,25 +125,3 @@ body {
 #sidenav button:hover {
     color: #442e00;
 }
-
-@media screen and (max-height: 450px) {
-    body {
-        font-size: 11pt;
-    }
-    #sidenav {
-       padding-top: 15px;
-   }
-    #sidenav a {
-       font-size: 13px;
-   }
-}
-
-@media screen and (max-width: 900px) {
-    #githubImg img {
-        transform: translateX(900px);
-    }
-
-    #container {
-        margin-right: 0;
-    }
-}
