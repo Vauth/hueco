@@ -73,7 +73,7 @@ var files = (function () {
     	"config.py":"class Production(Config): LOGGER = False",
     	".cache":"None",
 	"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
-        "README.md": "My name is odi & I'm a dev (BACK-END mostly),\nI know about AIs, Pentesting & so many things.",
+        "README.md": "I'm a Python dev, expertise in GUI, Web development, AI, Automation, ML, Data integration, BB, Penetration, SEO & etc.\nFor The #FreedomOfMinds",
         "mail.txt": "ivuxey@gmail.com",
         "telegram.txt": "https://feelded.t.me",
 	"music.txt": "https://t.me/+OpbNeduAS0cwMmY8",
