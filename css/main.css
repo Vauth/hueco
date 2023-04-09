@@ -10,7 +10,7 @@ html, body {
     margin: 0;
 }
 body {
-    font-size: 11.4pt;
+    font-size: 11pt !important;
     font-family: "Ubuntu Mono", "Courier New";
     color: white;
     background-color: #23252E;
