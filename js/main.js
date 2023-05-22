@@ -132,6 +132,7 @@ var main = (function () {
         IP: { value:"ip", help:"Get current ip address."},
 	FCIP: { value:"fcip", help:"Fresh cloudflare IP generator ABAN."},
         HOSTNAME: { value:"hostname", help:"This command can get or set the host name or the NIS domain name."},
+	SLYP: { value:"slyp", help:"Make spotify lyrics poster."},
 	MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
 	DORK: { value:"dork", help:"This command leads you to dorks cheatsheet JSON."},
         DATE: { value: "date", help: configs.getInstance().date_help },
@@ -355,6 +356,9 @@ var main = (function () {
 	    case cmds.FCIP.value:
                 this.fcip();
                 break;
+	    case cmds.SLYP.value:
+                this.slyp();
+                break;
             case cmds.HOSTNAME.value:
                 this.hostname();
                 break;
@@ -425,6 +429,11 @@ var main = (function () {
     Terminal.prototype.matrix = function (cmdComponents) {
 	location.replace('https://odium.us/matrix')
         this.type("Running...", this.unlock.bind(this));
+    };
+   
+    Terminal.prototype.slyp = function (cmdComponents) {
+	this.type("Running...", this.unlock.bind(this));
+	window.open('https://odium.us/slyp')
     };	
     
     Terminal.prototype.dorker = function (cmdComponents) {
