@@ -1,0 +1,212 @@
+.rect-default {
+
+    position: relative;
+    background-color: #277EE2;
+    flex-direction: column;
+    display: flex;
+    color: white;
+}
+
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+/* Modifichiamo il layout in base alle dimensioni dello schermo */
+@media (max-width: 768px) {
+
+    .main-div {
+        flex-direction: column;
+    }
+
+    .spotifytext {
+        text-align: center;
+    }
+
+    .parent {
+        margin-top: 6%;
+
+
+    }
+}
+
+@media (max-width:320px) {
+    /* smartphones, iPhone, portrait 480x320 phones */
+    .main-div {
+            flex-direction: column;
+        }
+                 .parent {
+                     margin-top: 6%;
+        
+        
+                 }
+}
+
+@media (max-width:481px) {
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+    .main-div {
+            flex-direction: column;
+        } .parent {
+             margin-top: 6%;
+        
+        
+         }
+}
+
+@media (max-width:641px) {
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+    .main-div {
+            flex-direction: column;
+        }
+                 .parent {
+                     margin-top: 6%;
+        
+        
+                 }
+}
+
+@media (max-width:961px) {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+    .main-div {
+            flex-direction: column;
+        }
+                 .parent {
+                     margin-top: 6%;
+        
+        
+                 }
+}
+
+@media (max-width:1025px) {
+    /* big landscape tablets, laptops, and desktops */
+    .main-div {
+            flex-direction: column;
+        }
+                 .parent {
+                     margin-top: 6%;
+        
+        
+                 }
+}
+
+
+
+body {
+
+    overflow-x: hidden;
+    /* Hide horizontal scrollbar */
+}
+
+
+html
+{
+    height: 100%;
+}
+
+
+.parent {
+    display: grid;
+    position: sticky;
+
+    grid-column-gap: 0px;
+
+    grid-row-gap: 50px;
+}
+
+.div1 {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.div2 {
+    grid-area: 1 / 3 / 2 / 4;
+}
+
+.div3 {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.div4 {
+    grid-area: 3 / 1 / 4 / 2;
+}
+
+.div5 {
+    grid-area: 2 / 3 / 3 / 4;
+}
+
+.container {
+    margin: auto;
+    min-height:fit-content;
+    width: min(100% - 30px, 840px);
+    margin-inline: auto;
+    padding: 10px;
+    margin-top: 5%;
+    align-items: center;
+    background-color: #23252E;
+}
+
+
+
+
+.main-div {
+    display: flex;
+    margin-top: 5%;
+    column-gap: 10%;
+}
+
+footer {
+    bottom: 0;
+    height: 2em;
+    left: 0;
+    position: relative;
+    width: 100%;
+    width: 100%;
+    text-align: center;
+
+
+}
+
+.songs-info {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px
+}
+
+
+
+.content-rect {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.spotify-logo {
+    width: 60px;
+    bottom: 0;
+    margin-bottom: 15px;
+}
+
+.footer-card {
+    position: absolute;
+    bottom: 0;
+}
+
+@font-face {
+    font-family: CircularStd;
+    font-weight: bold;
+    src: url('fonts/CircularStd-Bold.otf');
+
+
+}
+
+@font-face {
+    font-family: CircularStd;
+    font-weight: normal;
+    src: url('fonts/CircularStd-Book.otf');
+}
+
+h2 {
+    font-family: CircularStd;
+    font-weight: bold !important;
+}
+
+h3 {
+    font-family: CircularStd;
+    font-weight: normal;
+
+}
