@@ -189,7 +189,7 @@ footer {
 @font-face {
     font-family: CircularStd;
     font-weight: bold;
-    src: url('./fonts/CircularStd-Bold.otf');
+    src: url('../fonts/CircularStd-Bold.otf');
 
 
 }
@@ -197,7 +197,7 @@ footer {
 @font-face {
     font-family: CircularStd;
     font-weight: normal;
-    src: url('./fonts/CircularStd-Book.otf');
+    src: url('../fonts/CircularStd-Book.otf');
 }
 
 h2 {
@@ -212,5 +212,5 @@ h3 {
 }
 
 p {
-	font-family: CircularStd;
+    font-family: CircularStd;
 }
