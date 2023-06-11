@@ -72,6 +72,7 @@ var files = (function () {
     	"welcome.txt":"Welcome to my world.",
     	"config.py":"class Production(Config): LOGGER = False",
     	".cache":"None",
+	"pypi.whl":"https://pypi.org/user/ivuxy",
 	"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
         "README.md": "I'm a Python dev, expertise in GUI, Web development, AI, Automation, ML, Data integration, BB, Penetration, SEO & etc.\nFor The #FreedomOfMinds",
         "mail.txt": "ivuxey@gmail.com",
