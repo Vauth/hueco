@@ -132,6 +132,7 @@ var main = (function () {
         WHOAMI: { value: "whoami", help: configs.getInstance().whoami_help },
         IP: { value:"ip", help:"Get current ip address."},
 	FCIP: { value:"fcip", help:"Fresh cloudflare IP generator ABAN."},
+	V2RAY: { value:"v2ray", help:"Get alive v2ray configs (VM, VL, TR, SS)."},
         HOSTNAME: { value:"hostname", help:"This command can get or set the host name or the NIS domain name."},
 	SLYP: { value:"slyp", help:"Make spotify lyrics poster."},
 	MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
@@ -357,6 +358,9 @@ var main = (function () {
 	    case cmds.FCIP.value:
                 this.fcip();
                 break;
+	    case cmds.V2RAY.value:
+                this.v2ray();
+                break;
 	    case cmds.SLYP.value:
                 this.slyp();
                 break;
@@ -431,7 +435,12 @@ var main = (function () {
 	location.replace('https://odium.us/matrix')
         this.type("Running...", this.unlock.bind(this));
     };
-   
+
+    Terminal.prototype.v2ray = function (cmdComponents) {
+	location.replace('https://odium.us/v.txt')
+        this.type("Running...", this.unlock.bind(this));
+    };
+	
     Terminal.prototype.slyp = function (cmdComponents) {
 	this.type("Running...", this.unlock.bind(this));
 	window.open('https://odium.us/slyp')
