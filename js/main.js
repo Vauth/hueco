@@ -461,7 +461,7 @@ var main = (function () {
     };
 
     Terminal.prototype.somnium = function (cmdComponents) {
-	location.replace('https://odium.us/somnium')
+	location.replace('https://ivuxy-somnium.hf.space')
         this.type("Running...", this.unlock.bind(this));
     };
 	
