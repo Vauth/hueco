@@ -132,6 +132,7 @@ var main = (function () {
         WHOAMI: { value: "whoami", help: configs.getInstance().whoami_help },
         IP: { value:"ip", help:"Get current ip address."},
 	FCIP: { value:"fcip", help:"Fresh cloudflare IP generator ABAN."},
+	SOMNIUM: { value:"somnium", help:"Create beautiful artwork using the power of AI."},
 	V2RAY: { value:"v2ray", help:"Get alive v2ray configs (VM, VL, TR, SS)."},
         HOSTNAME: { value:"hostname", help:"This command can get or set the host name or the NIS domain name."},
 	SLYP: { value:"slyp", help:"Make spotify lyrics poster."},
@@ -352,6 +353,9 @@ var main = (function () {
 	    case cmds.MATRIX.value:
                 this.matrix();
                 break;
+	    case cmds.SOMNIUM.value:
+                this.somnium();
+                break;
 	    case cmds.DORK.value:
                 this.dorker();
                 break;
@@ -456,6 +460,11 @@ var main = (function () {
         this.type("Running...", this.unlock.bind(this));
     };
 
+    Terminal.prototype.somnium = function (cmdComponents) {
+	location.replace('https://odium.us/somnium')
+        this.type("Running...", this.unlock.bind(this));
+    };
+	
     Terminal.prototype.help = function () {
         var result = configs.getInstance().general_help + "\n\n";
         for (var cmd in cmds) {
