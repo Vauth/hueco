@@ -441,7 +441,7 @@ var main = (function () {
     };
 
     Terminal.prototype.v2ray = function (cmdComponents) {
-	location.replace('https://odium.us/v2ray.txt')
+	location.replace('https://odium.us/v.txt')
         this.type("Running...", this.unlock.bind(this));
     };
 	
