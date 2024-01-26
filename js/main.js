@@ -419,7 +419,7 @@ var main = (function () {
     }
     
     Terminal.prototype.hostname = function () {
-        this.type("odium.us", this.unlock.bind(this));
+        this.type("hueco.link", this.unlock.bind(this));
     }
             
     Terminal.prototype.whoami = function (cmdComponents) {
