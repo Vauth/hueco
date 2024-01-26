@@ -44,7 +44,7 @@ var configs = (function () {
         accesible_cores: "Accessible cores",
         language: "Language",
         value_token: "<value>",
-        host: "odium.us",
+        host: "hueco.link",
         user: "root",
         is_root: true,
         type_delay: 2
@@ -436,27 +436,27 @@ var main = (function () {
     };
 
     Terminal.prototype.matrix = function (cmdComponents) {
-	location.replace('https://odium.us/matrix')
+	location.replace('https://hueco.link/matrix')
         this.type("Running...", this.unlock.bind(this));
     };
 
     Terminal.prototype.v2ray = function (cmdComponents) {
-	location.replace('https://odium.us/v.txt')
+	location.replace('https://hueco.link/v.txt')
         this.type("Running...", this.unlock.bind(this));
     };
 	
     Terminal.prototype.slyp = function (cmdComponents) {
 	this.type("Running...", this.unlock.bind(this));
-	window.open('https://odium.us/slyp')
+	window.open('https://hueco.link/slyp')
     };	
     
     Terminal.prototype.dorker = function (cmdComponents) {
-	location.replace('https://odium.us/dork.json')
+	location.replace('https://hueco.link/dork.json')
         this.type("Running...", this.unlock.bind(this));
     };
 	
     Terminal.prototype.fcip = function (cmdComponents) {
-	location.replace('https://odium.us/fcip')
+	location.replace('https://hueco.link/fcip')
         this.type("Running...", this.unlock.bind(this));
     };
 
