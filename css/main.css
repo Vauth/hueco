@@ -1,9 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono'); */
-
-@font-face {
-    font-family: MonoUbuntu;
-    font-weight: normal;
-    src: url('../fonts/UbuntuMono-Regular.otf');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
 
 ::selection {
     background: white;
@@ -16,7 +11,7 @@ html, body {
 }
 body {
     font-size: 12pt !important;
-    font-family: MonoUbuntu, "Courier New";
+    font-family: "Ubuntu Mono", "Courier New";
     color: white;
     background-color: #23252E;
 }
