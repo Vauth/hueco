@@ -138,6 +138,7 @@ var main = (function () {
 	SLYP: { value:"slyp", help:"Make spotify lyrics poster."},
 	MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
 	DORK: { value:"dork", help:"This command leads you to dorks cheatsheet JSON."},
+	VPN: { value:"vpn", help:"Download latest version of Vox VPN (Desktop)"},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
         CLEAR: { value: "clear", help: configs.getInstance().clear_help },
@@ -368,6 +369,9 @@ var main = (function () {
 	    case cmds.SLYP.value:
                 this.slyp();
                 break;
+	    case cmds.VPN.value:
+                this.vpner();
+                break;
             case cmds.HOSTNAME.value:
                 this.hostname();
                 break;
@@ -462,6 +466,10 @@ var main = (function () {
 
     Terminal.prototype.somnium = function (cmdComponents) {
 	location.replace('https://ivuxy-somnium.hf.space')
+        this.type("Running...", this.unlock.bind(this));
+    };
+    Terminal.prototype.vpner = function (cmdComponents) {
+	location.replace('https://github.com/Vauth/node/releases/tag/vox')
         this.type("Running...", this.unlock.bind(this));
     };
 	
