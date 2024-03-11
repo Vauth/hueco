@@ -469,7 +469,7 @@ var main = (function () {
         this.type("Running...", this.unlock.bind(this));
     };
     Terminal.prototype.vpner = function (cmdComponents) {
-	location.replace('https://github.com/Vauth/node/releases/tag/vox')
+	location.replace('https://github.com/Vauth/node/releases')
         this.type("Running...", this.unlock.bind(this));
     };
 	
