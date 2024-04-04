@@ -70,7 +70,7 @@ var files = (function () {
     };
     Singleton.defaultOptions = {
     	"welcome.txt":"Get out.",
-    	"config.py":"class Production(Config): LOGGER = False",
+    	"config.py":"class Production(Config): LOGGER = True",
     	".cache":"None",
 	"pypi.whl":"https://pypi.org/user/ivuxy",
 	"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
