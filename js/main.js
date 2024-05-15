@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Configs (By odi)
+ * Configs (By github.com/vauth)
  */
 document.addEventListener('contextmenu', event => event.preventDefault());
 
@@ -74,12 +74,12 @@ var files = (function () {
     	".cache":"None",
 	"pypi.whl":"https://pypi.org/user/ivuxy",
 	"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
-        "README.md": "Py Geek, GUI, Web development, Automation, ML, Data integration, BB & etc.",
+        "README.md": "PyGeek, GUI, Web development, Automation, ML, Data integration, BB & etc.",
         "mail.txt": "ivuxey@gmail.com",
         "telegram.txt": "https://feelded.t.me",
 	"music.txt": "https://t.me/+OpbNeduAS0cwMmY8",
         "github.txt":"https://github.com/vauth",
-	"cloud.txt":"https://ivuxy.co",
+	"cloud.txt":"https://index.ivuxy.workers.dev",
     };
     return {
         getInstance: function (options) {
@@ -469,7 +469,7 @@ var main = (function () {
         this.type("Running...", this.unlock.bind(this));
     };
     Terminal.prototype.vpner = function (cmdComponents) {
-	location.replace('https://github.com/Vauth/node/releases')
+	location.replace('https://github.com/Vauth/Vox/releases')
         this.type("Running...", this.unlock.bind(this));
     };
 	
