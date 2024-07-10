@@ -4,6 +4,7 @@
  * https://github.com/vauth/hueco
  */
 document.addEventListener('contextmenu', event => event.preventDefault());
+document.cookie = "message=We are watching you.";
 
 var configs = (function () {
     var instance;
@@ -139,7 +140,7 @@ var main = (function () {
 	MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
 	DORK: { value:"dork", help:"This command leads you to dorks cheatsheet JSON."},
 	VPN: { value:"vpn", help:"Download latest version of Vox VPN (Desktop)."},
-	DOMIT: { value: "dom", help: "Take control of document object model (DOM) with javascript."},
+	DOMIT: { value: "dom", help: "Take control of document/browser object model (DOM/BOM)."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
 	ECHOIT: { value: "echo", help: "Output the strings that are passed to it as arguments."},
