@@ -44,7 +44,7 @@ var configs = (function () {
         accesible_cores: "Accessible cores",
         language: "Language",
         value_token: "<value>",
-        host: "hueco.link", // Replace this with your host
+        host: window.location.hostname, // "hueco.link" => Replace this with your host
         user: "root",
         is_root: true,
         type_delay: 2
