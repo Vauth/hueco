@@ -138,7 +138,8 @@ var main = (function () {
 	SLYP: { value:"slyp", help:"Make spotify lyrics poster."},
 	MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
 	DORK: { value:"dork", help:"This command leads you to dorks cheatsheet JSON."},
-	VPN: { value:"vpn", help:"Download latest version of Vox VPN (Desktop)"},
+	VPN: { value:"vpn", help:"Download latest version of Vox VPN (Desktop)."},
+	DOMIT: { value: "dom", help: "Take control of document object model (DOM) with javascript."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
 	ECHOIT: { value: "echo", help: "Output the strings that are passed to it as arguments."},
@@ -334,6 +335,9 @@ var main = (function () {
 	    case cmds.ECHOIT.value:
                 this.echoit(cmdComponents);
                 break;
+	    case cmds.DOMIT.value:
+                this.domit(cmdComponents);
+                break;
             case cmds.LS.value:
                 this.ls();
                 break;
@@ -416,6 +420,21 @@ var main = (function () {
         }
         else {
             this.type(cmdComponents.slice(1).join(' '), this.unlock.bind(this));
+        }
+    };
+
+    Terminal.prototype.domit = function (cmdComponents) {
+        if (cmdComponents.length <= 1) {
+            this.type("Usage: dom <code>", this.unlock.bind(this));
+        }
+        else {
+            try {var result = JSON.stringify(eval(cmdComponents.slice(1).join(' ')));} catch(error) {var result = error.toString()}
+            if (result) {
+                this.type(result, this.unlock.bind(this));
+            }
+            else {
+                this.type("None", this.unlock.bind(this));
+            }
         }
     };
     Terminal.prototype.ls = function () {
