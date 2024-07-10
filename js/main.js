@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Configs (By github.com/vauth)
+ * https://github.com/vauth/hueco
  */
 document.addEventListener('contextmenu', event => event.preventDefault());
 
@@ -44,7 +44,7 @@ var configs = (function () {
         accesible_cores: "Accessible cores",
         language: "Language",
         value_token: "<value>",
-        host: "hueco.link",
+        host: "hueco.link", // Replace this with your host
         user: "root",
         is_root: true,
         type_delay: 2
@@ -423,7 +423,7 @@ var main = (function () {
     }
     
     Terminal.prototype.hostname = function () {
-        this.type("hueco.link", this.unlock.bind(this));
+        this.type(configs.getInstance().host, this.unlock.bind(this));
     }
             
     Terminal.prototype.whoami = function (cmdComponents) {
@@ -440,27 +440,27 @@ var main = (function () {
     };
 
     Terminal.prototype.matrix = function (cmdComponents) {
-	location.replace('https://hueco.link/matrix')
+	location.replace(`https://${configs.getInstance().host}/matrix`)
         this.type("Running...", this.unlock.bind(this));
     };
 
     Terminal.prototype.v2ray = function (cmdComponents) {
-	location.replace('https://hueco.link/v.txt')
+	location.replace(`https://${configs.getInstance().host}/v.txt`)
         this.type("Running...", this.unlock.bind(this));
     };
 	
     Terminal.prototype.slyp = function (cmdComponents) {
 	this.type("Running...", this.unlock.bind(this));
-	window.open('https://hueco.link/slyp')
+	window.open(`https://${configs.getInstance().host}/slyp`)
     };	
     
     Terminal.prototype.dorker = function (cmdComponents) {
-	location.replace('https://hueco.link/dork.json')
+	location.replace(`https://${configs.getInstance().host}/dork.json`)
         this.type("Running...", this.unlock.bind(this));
     };
 	
     Terminal.prototype.fcip = function (cmdComponents) {
-	location.replace('https://hueco.link/fcip')
+	location.replace(`https://${configs.getInstance().host}/fcip`)
         this.type("Running...", this.unlock.bind(this));
     };
 
