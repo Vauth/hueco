@@ -141,6 +141,7 @@ var main = (function () {
 	VPN: { value:"vpn", help:"Download latest version of Vox VPN (Desktop)"},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
+	ECHOIT: { value: "echo", help: "Output the strings that are passed to it as arguments."},
         CLEAR: { value: "clear", help: configs.getInstance().clear_help },
         REBOOT: { value: "reboot", help: configs.getInstance().reboot_help },
         CD: { value: "cd", help: configs.getInstance().cd_help },
@@ -330,6 +331,9 @@ var main = (function () {
             case cmds.CAT.value:
                 this.cat(cmdComponents);
                 break;
+	    case cmds.ECHOIT.value:
+                this.echoit(cmdComponents);
+                break;
             case cmds.LS.value:
                 this.ls();
                 break;
@@ -406,6 +410,14 @@ var main = (function () {
         this.type(result, this.unlock.bind(this));
     };
 
+    Terminal.prototype.echoit = function (cmdComponents) {
+        if (cmdComponents.length <= 1) {
+            this.type("Usage: echo <string>", this.unlock.bind(this));
+        }
+        else {
+            this.type(cmdComponents.slice(1).join(' '), this.unlock.bind(this));
+        }
+    };
     Terminal.prototype.ls = function () {
         var result = "";
         for (var file in files.getInstance()) {
