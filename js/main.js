@@ -147,6 +147,7 @@ var main = (function () {
 	ECHOIT: { value: "echo", help: "Output the strings that are passed to it as arguments."},
         CLEAR: { value: "clear", help: configs.getInstance().clear_help },
         REBOOT: { value: "reboot", help: configs.getInstance().reboot_help },
+	UUID: { value: "uuid", help: "Generate version-4 UUIDs according to RFC 4122 instantly."},
         CD: { value: "cd", help: configs.getInstance().cd_help },
         MV: { value: "mv", help: configs.getInstance().mv_help },
         RM: { value: "rm", help: configs.getInstance().rm_help },
@@ -346,6 +347,9 @@ var main = (function () {
             case cmds.LS.value:
                 this.ls();
                 break;
+	    case cmds.UUID.value:
+                this.uuid();
+                break;
             case cmds.WHOAMI.value:
                 this.whoami();
                 break;
@@ -526,9 +530,21 @@ var main = (function () {
 	location.replace('https://ivuxy-somnium.hf.space')
         this.type("Running...", this.unlock.bind(this));
     };
+	
     Terminal.prototype.vpner = function (cmdComponents) {
 	location.replace('https://github.com/Vauth/Vox/releases')
         this.type("Running...", this.unlock.bind(this));
+    };
+
+    Terminal.prototype.uuid = function (cmdComponents) {
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0,
+                    v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+        this.type(generateUUID(), this.unlock.bind(this));
     };
 	
     Terminal.prototype.help = function () {
