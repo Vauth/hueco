@@ -451,12 +451,18 @@ var main = (function () {
     }
     
     Terminal.prototype.ip = function () {
-        this.type("35.247.60.154", this.unlock.bind(this));
-    }
+        let that = this; 
+        $.getJSON("https://api.ipify.org/?format=json", function(e) {
+            that.type(e.ip, that.unlock.bind(that));
+        })
+        .fail(function(error) {
+            that.type(error.toString(), that.unlock.bind(that));
+        });
+    };
     
     Terminal.prototype.hostname = function () {
         this.type(configs.getInstance().host, this.unlock.bind(this));
-    }
+    };
             
     Terminal.prototype.whoami = function (cmdComponents) {
         var result = configs.getInstance().username + ": " + configs.getInstance().user + "\n" + configs.getInstance().hostname + ": " + configs.getInstance().host + "\n" + configs.getInstance().platform + ": " + navigator.platform + "\n" + configs.getInstance().accesible_cores + ": " + navigator.hardwareConcurrency + "\n" + configs.getInstance().language + ": " + navigator.language;
