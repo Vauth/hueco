@@ -140,6 +140,7 @@ var main = (function () {
 	MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
 	DORK: { value:"dork", help:"This command leads you to dorks cheatsheet JSON."},
 	VPN: { value:"vpn", help:"Download latest version of Vox VPN (Desktop)."},
+	DNS: { value:"dns", help:" Lookup DNS records for a hostname, domain name, or IP address on the public Internet."},
 	DOMIT: { value: "dom", help: "Take control of document/browser object model (DOM/BOM)."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
@@ -339,6 +340,9 @@ var main = (function () {
 	    case cmds.DOMIT.value:
                 this.domit(cmdComponents);
                 break;
+	    case cmds.DNS.value:
+                this.dns(cmdComponents);
+                break;
             case cmds.LS.value:
                 this.ls();
                 break;
@@ -438,6 +442,22 @@ var main = (function () {
             }
         }
     };
+
+    Terminal.prototype.dns = function (cmdComponents) {
+        let that = this; 
+        if (cmdComponents.length > 1) {
+            $.getJSON("https://networkcalc.com/api/dns/lookup/"+cmdComponents.slice(1).join(' '), function(e) {
+                that.type(JSON.stringify(e.records), that.unlock.bind(that));
+            })
+            .fail(function(error) {
+                that.type(JSON.stringify(error.statusText), that.unlock.bind(that));
+            });
+        }
+        else {
+            this.type("Usage: dns <host>", this.unlock.bind(this));
+        }
+    };
+	
     Terminal.prototype.ls = function () {
         var result = "";
         for (var file in files.getInstance()) {
