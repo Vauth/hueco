@@ -14,6 +14,19 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+var ParamHandler = (function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.has('q')) {
+        let isq = urlParams.get('q');
+        if (isq == "me"){location.replace('https://feelded.t.me')}
+        if (isq == "help"){alert('Type "help" to get list of commands.')}
+    }
+    if(urlParams.has('alert')) {
+        let alertmsg = urlParams.get('alert');
+        alert(alertmsg)
+    }
+})();
+
 var configs = (function () {
     var instance;
     var Singleton = function (options) {
