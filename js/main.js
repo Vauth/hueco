@@ -6,6 +6,14 @@
 document.addEventListener('contextmenu', event => event.preventDefault());
 document.cookie = "message=We are watching you.";
 
+document.addEventListener('keydown', function(event) {
+    const urlParams = new URLSearchParams(window.location.search);
+    if ((event.key || event.key == 'Enter') && urlParams.has('mode') && (urlParams.get('mode') == 'pro')) {
+        var audio = new Audio('../audio/sound.mp3');
+        audio.play();
+    }
+});
+
 var configs = (function () {
     var instance;
     var Singleton = function (options) {
@@ -132,22 +140,22 @@ var main = (function () {
         CAT: { value: "cat", help: configs.getInstance().cat_help },
         WHOAMI: { value: "whoami", help: configs.getInstance().whoami_help },
         IP: { value:"ip", help:"Get current ip address."},
-	FCIP: { value:"fcip", help:"Fresh cloudflare IP generator ABAN."},
-	SOMNIUM: { value:"somnium", help:"Create beautiful artwork using the power of AI."},
-	V2RAY: { value:"v2ray", help:"Get alive v2ray configs (VM, VL, TR, SS)."},
+		FCIP: { value:"fcip", help:"Fresh cloudflare IP generator ABAN."},
+		SOMNIUM: { value:"somnium", help:"Create beautiful artwork using the power of AI."},
+		V2RAY: { value:"v2ray", help:"Get alive v2ray configs (VM, VL, TR, SS)."},
         HOSTNAME: { value:"hostname", help:"This command can get or set the host name or the NIS domain name."},
-	SLYP: { value:"slyp", help:"Make spotify lyrics poster."},
-	MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
-	DORK: { value:"dork", help:"This command leads you to dorks cheatsheet JSON."},
-	VPN: { value:"vpn", help:"Download latest version of Vox VPN (Desktop)."},
-	DNS: { value:"dns", help:" Lookup DNS records for a hostname, domain name, or IP address on the public Internet."},
-	DOMIT: { value: "dom", help: "Take control of document/browser object model (DOM/BOM)."},
+		SLYP: { value:"slyp", help:"Make spotify lyrics poster."},
+		MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
+		DORK: { value:"dork", help:"This command leads you to dorks cheatsheet JSON."},
+		VPN: { value:"vpn", help:"Download latest version of Vox VPN (Desktop)."},
+		DNS: { value:"dns", help:" Lookup DNS records for a hostname, domain name, or IP address on the public Internet."},
+		DOMIT: { value: "dom", help: "Take control of document/browser object model (DOM/BOM)."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
-	ECHOIT: { value: "echo", help: "Output the strings that are passed to it as arguments."},
+		ECHOIT: { value: "echo", help: "Output the strings that are passed to it as arguments."},
         CLEAR: { value: "clear", help: configs.getInstance().clear_help },
         REBOOT: { value: "reboot", help: configs.getInstance().reboot_help },
-	UUID: { value: "uuid", help: "Generate version-4 UUIDs according to RFC 4122 instantly."},
+		UUID: { value: "uuid", help: "Generate version-4 UUIDs according to RFC 4122 instantly."},
         CD: { value: "cd", help: configs.getInstance().cd_help },
         MV: { value: "mv", help: configs.getInstance().mv_help },
         RM: { value: "rm", help: configs.getInstance().rm_help },
@@ -335,19 +343,19 @@ var main = (function () {
             case cmds.CAT.value:
                 this.cat(cmdComponents);
                 break;
-	    case cmds.ECHOIT.value:
+	    	case cmds.ECHOIT.value:
                 this.echoit(cmdComponents);
                 break;
-	    case cmds.DOMIT.value:
+	    	case cmds.DOMIT.value:
                 this.domit(cmdComponents);
                 break;
-	    case cmds.DNS.value:
+	    	case cmds.DNS.value:
                 this.dns(cmdComponents);
                 break;
             case cmds.LS.value:
                 this.ls();
                 break;
-	    case cmds.UUID.value:
+	    	case cmds.UUID.value:
                 this.uuid();
                 break;
             case cmds.WHOAMI.value:
@@ -368,25 +376,25 @@ var main = (function () {
             case cmds.IP.value:
                 this.ip();
                 break;
-	    case cmds.MATRIX.value:
+	    	case cmds.MATRIX.value:
                 this.matrix();
                 break;
-	    case cmds.SOMNIUM.value:
+	    	case cmds.SOMNIUM.value:
                 this.somnium();
                 break;
-	    case cmds.DORK.value:
+	    	case cmds.DORK.value:
                 this.dorker();
                 break;
-	    case cmds.FCIP.value:
+	    	case cmds.FCIP.value:
                 this.fcip();
                 break;
-	    case cmds.V2RAY.value:
+	    	case cmds.V2RAY.value:
                 this.v2ray();
                 break;
-	    case cmds.SLYP.value:
+	    	case cmds.SLYP.value:
                 this.slyp();
                 break;
-	    case cmds.VPN.value:
+	    	case cmds.VPN.value:
                 this.vpner();
                 break;
             case cmds.HOSTNAME.value:
