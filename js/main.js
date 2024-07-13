@@ -95,7 +95,7 @@ var files = (function () {
     	"welcome.txt":"Get out.",
     	"config.py":"class Production(Config): LOGGER = True",
     	".cache":"None",
-		"endpoints.txt":"?mode=[cat|uwu|pro|lux]\n?q=[me|help]\n?alert=[text]",
+		"endpoint.txt":"- /?mode=[cat|uwu|pro|lux]\n- /?q=[me|help]\n- /?alert=[text]",
 		"pypi.whl":"https://pypi.org/user/ivuxy",
 		"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
         "README.md": "PyGeek, GUI, Web development, Automation, ML, Data integration, BB & etc.",
