@@ -8,8 +8,9 @@ document.cookie = "message=We are watching you.";
 
 document.addEventListener('keydown', function(event) {
     const urlParams = new URLSearchParams(window.location.search);
-    if ((event.key || event.key == 'Enter') && urlParams.has('mode') && (urlParams.get('mode') == 'pro')) {
-        var audio = new Audio('../audio/sound.mp3');
+    let modeList = ["cat", "uwu", "pro", "lux"]; // Upload mp3 to ../audio and add audio name to list
+    if ((event.key || event.key == 'Enter') && urlParams.has('mode') && (modeList.includes(urlParams.get('mode')))) {
+        var audio = new Audio('../audio/' + urlParams.get('mode') + '.mp3');
         audio.play();
     }
 });
