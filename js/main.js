@@ -9,7 +9,7 @@ document.cookie = "message=We are watching you.";
 document.addEventListener('keydown', function(event) {
     const urlParams = new URLSearchParams(window.location.search);
     let modeList = ["cat", "uwu", "pro", "lux"]; // Upload mp3 to ../audio and add audio name to list
-    if ((event.key || event.key == 'Enter') && urlParams.has('mode') && (modeList.includes(urlParams.get('mode')))) {
+    if ((event.key) && urlParams.has('mode') && (modeList.includes(urlParams.get('mode')))) {
         var audio = new Audio('../audio/' + urlParams.get('mode') + '.mp3');
         audio.play();
     }
@@ -95,14 +95,15 @@ var files = (function () {
     	"welcome.txt":"Get out.",
     	"config.py":"class Production(Config): LOGGER = True",
     	".cache":"None",
-	"pypi.whl":"https://pypi.org/user/ivuxy",
-	"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
+		"endpoints.txt":"?mode=[cat|uwu|pro|lux]\n?q=[me|help]\n?alert=[text]",
+		"pypi.whl":"https://pypi.org/user/ivuxy",
+		"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
         "README.md": "PyGeek, GUI, Web development, Automation, ML, Data integration, BB & etc.",
         "mail.txt": "ivuxey@gmail.com",
         "telegram.txt": "https://feelded.t.me",
-	"music.txt": "https://t.me/+OpbNeduAS0cwMmY8",
+		"music.txt": "https://t.me/+OpbNeduAS0cwMmY8",
         "github.txt":"https://github.com/vauth",
-	"cloud.txt":"https://index.ivuxy.workers.dev",
+		"cloud.txt":"https://index.ivuxy.workers.dev",
     };
     return {
         getInstance: function (options) {
