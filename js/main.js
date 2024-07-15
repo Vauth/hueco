@@ -4,7 +4,7 @@
  * https://github.com/vauth/hueco
  */
 document.addEventListener('contextmenu', event => event.preventDefault());
-document.cookie = "message=We are watching you.";
+document.cookie = "message=We are watching you.;SameSite=Lax";
 
 document.addEventListener('keydown', function(event) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -531,7 +531,7 @@ var main = (function () {
         let that = this; 
         if (cmdComponents.length > 1) {
             $.getJSON("https://api.microlink.io/?url="+cmdComponents.slice(1).join(' '), function(e) {
-                that.type(JSON.stringify(e).replace(/\\/g, ""), that.unlock.bind(that));
+                that.type(JSON.stringify(e.data).replace(/\\/g, ""), that.unlock.bind(that));
             })
             .fail(function(error) {
                 that.type(JSON.stringify(JSON.parse(error.responseText).data.url), that.unlock.bind(that));
