@@ -111,7 +111,7 @@ var files = (function () {
 		"pypi.whl":"https://pypi.org/user/ivuxy",
 		"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
         "README.md": "PyGeek, GUI, Web development, Automation, ML, Data integration, BB & etc.",
-        "mail.txt": "ivuxey@gmail.com",
+        "mail.txt": "odium@disroot.org",
         "telegram.txt": "https://feelded.t.me",
 		"music.txt": "https://t.me/+OpbNeduAS0cwMmY8",
         "github.txt":"https://github.com/vauth",
@@ -176,6 +176,7 @@ var main = (function () {
 		DORK: { value:"dork", help:"This command leads you to dorks cheatsheet JSON."},
 		VPN: { value:"vpn", help:"Download latest version of Vox VPN (Desktop)."},
 		DNS: { value:"dns", help:" Lookup DNS records for a hostname, domain name, or IP address on the public Internet."},
+		BASE64: { value:"base64", help:"base64 encoder and decoder."},
 		DOMIT: { value: "dom", help: "Take control of document/browser object model (DOM/BOM)."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
@@ -379,6 +380,9 @@ var main = (function () {
 	    	case cmds.DNS.value:
                 this.dns(cmdComponents);
                 break;
+			case cmds.BASE64.value:
+                this.base64(cmdComponents);
+                break;
             case cmds.LS.value:
                 this.ls();
                 break;
@@ -480,6 +484,16 @@ var main = (function () {
                 this.type("None", this.unlock.bind(this));
             }
         }
+    };
+
+	Terminal.prototype.base64 = function (cmdComponents) {
+        let baseList = ['en', 'de'];
+        if (baseList.includes(cmdComponents[1])) {
+            if (cmdComponents[1] == 'en') {this.type(btoa(cmdComponents.slice(2).join(' ')), this.unlock.bind(this));}
+            else {this.type(atob(cmdComponents.slice(2).join(' ')), this.unlock.bind(this));}
+        }
+        else {this.type("Usage:\n- base64 en <string>\n- base64 de <base64-string>", this.unlock.bind(this));}
+        
     };
 
     Terminal.prototype.dns = function (cmdComponents) {
