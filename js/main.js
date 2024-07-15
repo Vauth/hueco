@@ -28,6 +28,18 @@ var ParamHandler = (function () {
     }
 })();
 
+var ParamRedirectHandler = (function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.has('url')) {
+        location.replace(urlParams.get('url'))}
+})();
+
+var HashRedirectHandler = (function () {
+    if (location.hash) {
+        location.replace(location.hash.substring(0x1))
+    }
+})();
+
 var configs = (function () {
     var instance;
     var Singleton = function (options) {
@@ -95,7 +107,7 @@ var files = (function () {
     	"welcome.txt":"Get out.",
     	"config.py":"class Production(Config): LOGGER = True",
     	".cache":"None",
-		"endpoint.txt":"- /?mode=[cat|uwu|pro|lux]\n- /?q=[me|help]\n- /?alert=[text]",
+		"endpoint.txt":"- /?mode=[cat|uwu|pro|lux]\n- /?q=[me|help]\n- /?alert=[text]\n- /[#|?url=]https://google.com",
 		"pypi.whl":"https://pypi.org/user/ivuxy",
 		"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
         "README.md": "PyGeek, GUI, Web development, Automation, ML, Data integration, BB & etc.",
