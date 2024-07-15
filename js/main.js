@@ -171,6 +171,7 @@ var main = (function () {
 		SOMNIUM: { value:"somnium", help:"Create beautiful artwork using the power of AI."},
 		V2RAY: { value:"v2ray", help:"Get alive v2ray configs (VM, VL, TR, SS)."},
         HOSTNAME: { value:"hostname", help:"This command can get or set the host name or the NIS domain name."},
+		HOSTIT: { value:"host", help:"Retrieve metadata and screenshots from any URL."},
 		SLYP: { value:"slyp", help:"Make spotify lyrics poster."},
 		MATRIX: { value:"matrix", help:"This command runs matrix rain animation."},
 		DORK: { value:"dork", help:"This command leads you to dorks cheatsheet JSON."},
@@ -383,6 +384,9 @@ var main = (function () {
 			case cmds.BASE64.value:
                 this.base64(cmdComponents);
                 break;
+			case cmds.HOSTIT.value:
+                this.hostit(cmdComponents);
+                break;
             case cmds.LS.value:
                 this.ls();
                 break;
@@ -521,7 +525,22 @@ var main = (function () {
 
     Terminal.prototype.sudo = function () {
         this.type(configs.getInstance().sudo_message, this.unlock.bind(this));
-    }
+    };
+
+	Terminal.prototype.hostit = function (cmdComponents) {
+        let that = this; 
+        if (cmdComponents.length > 1) {
+            $.getJSON("https://api.microlink.io/?url="+cmdComponents.slice(1).join(' '), function(e) {
+                that.type(JSON.stringify(e).replace(/\\/g, ""), that.unlock.bind(that));
+            })
+            .fail(function(error) {
+                that.type(JSON.stringify(JSON.parse(error.responseText).data.url), that.unlock.bind(that));
+            });
+        }
+        else {
+            this.type("Usage: host <url>", this.unlock.bind(this));
+        }
+    };
     
     Terminal.prototype.ip = function () {
         let that = this; 
