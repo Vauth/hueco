@@ -35,8 +35,8 @@ var ParamRedirectHandler = (function () {
 })();
 
 var HashRedirectHandler = (function () {
-    if (location.hash) {
-        location.replace(location.hash.substring(0x1))
+    if (location.hash && location.hash.substring(0x1).startsWith('http')) {
+        location.replace(location.hash.substring(0x1)) // I don't let you in script =))
     }
 })();
 
