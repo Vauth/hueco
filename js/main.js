@@ -179,6 +179,7 @@ var main = (function () {
 		DNS: { value:"dns", help:" Lookup DNS records for a hostname, domain name, or IP address on the public Internet."},
 		BASE64: { value:"base64", help:"base64 encoder and decoder."},
 		DOMIT: { value: "dom", help: "Take control of document/browser object model (DOM/BOM)."},
+		TGINFO: { value: "tginfo", help: "Retrieve your data via Telegram Web Hash."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
 		ECHOIT: { value: "echo", help: "Output the strings that are passed to it as arguments."},
@@ -390,6 +391,9 @@ var main = (function () {
             case cmds.LS.value:
                 this.ls();
                 break;
+			case cmds.TGINFO.value:
+                this.tginfo();
+                break;
 	    	case cmds.UUID.value:
                 this.uuid();
                 break;
@@ -597,6 +601,15 @@ var main = (function () {
     Terminal.prototype.somnium = function (cmdComponents) {
 	location.replace('https://ivuxy-somnium.hf.space')
         this.type("Running...", this.unlock.bind(this));
+    };
+
+	Terminal.prototype.tginfo = function (cmdComponents) {
+        if (location.hash && location.hash.substring(0x1).startsWith("tgWebAppData")) {
+            var tgData = decodeURIComponent(decodeURIComponent(window.location.hash.substring(0x1))).replace(/tgWebAppData=/g, '').replace(/&/g, '\n') 
+            this.type(tgData, this.unlock.bind(this));
+        } else {
+            this.type("Open https://t.me/huecobot/start to use this command.", this.unlock.bind(this));
+        }
     };
 	
     Terminal.prototype.vpner = function (cmdComponents) {
