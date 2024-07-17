@@ -606,7 +606,7 @@ var main = (function () {
 	Terminal.prototype.tginfo = function (cmdComponents) {
         if (location.hash && location.hash.substring(0x1).startsWith("tgWebAppData")) {
             var tgData = decodeURIComponent(decodeURIComponent(window.location.hash.substring(0x1))).replace(/tgWebAppData=/g, '').replace(/&/g, '\n') 
-            this.type(tgData, this.unlock.bind(this));
+            this.type(tgData.trim(), this.unlock.bind(this));
         } else {
             this.type("Open https://t.me/huecobot/start to use this command.", this.unlock.bind(this));
         }
