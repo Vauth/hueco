@@ -49,7 +49,7 @@ var configs = (function () {
         }
     };
     Singleton.defaultOptions = {
-        general_help: "",
+        general_help: "", // null
         ls_help: "List information about the files and folders (the current directory by default).",
         cat_help: "Read FILE(s) content and print it to the standard output (screen).",
         whoami_help: "Print the user name associated with the current effective user ID and more info.",
