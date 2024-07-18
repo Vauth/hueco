@@ -481,7 +481,7 @@ var main = (function () {
 
     Terminal.prototype.domit = function (cmdComponents) {
         if (cmdComponents.length <= 1) {
-            this.type("Usage: dom <code>", this.unlock.bind(this));
+            this.type("Usage: eval <code>", this.unlock.bind(this));
         }
         else {
             try {var result = JSON.stringify(eval(cmdComponents.slice(1).join(' ')));} catch(error) {var result = error.toString()}
