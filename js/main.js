@@ -178,7 +178,7 @@ var main = (function () {
 		VPN: { value:"vpn", help:"Download latest version of Vox VPN (Desktop)."},
 		DNS: { value:"dns", help:" Lookup DNS records for a hostname, domain name, or IP address on the public Internet."},
 		BASE64: { value:"base64", help:"base64 encoder and decoder."},
-		DOMIT: { value: "dom", help: "Take control of document/browser object model (DOM/BOM)."},
+		DOMIT: { value: "eval", help: "Take control of document/browser object model (DOM/BOM)."},
 		TGINFO: { value: "tginfo", help: "Retrieve your data via Telegram Web Hash."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
