@@ -588,7 +588,7 @@ var main = (function () {
     };
 
 	Terminal.prototype.ffuf = function (cmdComponents) {
-        this.type(`Try to fuzz the credentials ;)\nEndpoint: ${location.host}/FUZZ\nTool: ffuf, gobuster, wfuzz\nWordlist: tinyurl.com/wordlist-txt`, this.unlock.bind(this));
+        this.type(`Try to fuzz the credentials ;)\n- Endpoint: ${location.host}/FUZZ\n- Tool: ffuf, gobuster, wfuzz\n- Wordlist: tinyurl.com/wordlists-txt`, this.unlock.bind(this));
     };
 	
     Terminal.prototype.slyp = function (cmdComponents) {
