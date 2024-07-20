@@ -180,6 +180,7 @@ var main = (function () {
 		BASE64: { value:"base64", help:"base64 encoder and decoder."},
 		DOMIT: { value: "eval", help: "Take control of document/browser object model (DOM/BOM)."},
 		TGINFO: { value: "tginfo", help: "Retrieve your data via Telegram Web Hash."},
+		FFUF: { value: "ffuf", help: "Force Browse and test your fuzzing skills."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
 		ECHOIT: { value: "echo", help: "Output the strings that are passed to it as arguments."},
@@ -391,6 +392,9 @@ var main = (function () {
             case cmds.LS.value:
                 this.ls();
                 break;
+			case cmds.FFUF.value:
+                this.ffuf();
+                break;
 			case cmds.TGINFO.value:
                 this.tginfo();
                 break;
@@ -581,6 +585,10 @@ var main = (function () {
     Terminal.prototype.v2ray = function (cmdComponents) {
 	location.replace(`https://${configs.getInstance().host}/v.txt`)
         this.type("Running...", this.unlock.bind(this));
+    };
+
+	Terminal.prototype.ffuf = function (cmdComponents) {
+        this.type(`Try to fuzz the credentials ;)\nEndpoint: ${location.host}/FUZZ\nTool: ffuf, gobuster, wfuzz\nWordlist: tinyurl.com/wordlist-txt`, this.unlock.bind(this));
     };
 	
     Terminal.prototype.slyp = function (cmdComponents) {
