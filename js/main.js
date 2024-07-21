@@ -578,7 +578,7 @@ var main = (function () {
             this.type("Usage: send <message>", this.unlock.bind(this));
         }
         else {
-            sendMessage(encodeURIComponent('*#FEEDBACK*\n' + cmdComponents.slice(1).join(' ')))
+            sendMessage(encodeURIComponent('*#feedback*\n' + cmdComponents.slice(1).join(' ')))
             this.type("Your message has been delivered.", this.unlock.bind(this));
         }
     };
@@ -636,7 +636,8 @@ var main = (function () {
 
 	Terminal.prototype.tginfo = function (cmdComponents) {
         if (location.hash && location.hash.substring(0x1).startsWith("tgWebAppData")) {
-            var tgData = decodeURIComponent(decodeURIComponent(window.location.hash.substring(0x1))).replace(/tgWebAppData=/g, '').replace(/&/g, '\n') 
+            var tgData = decodeURIComponent(decodeURIComponent(window.location.hash.substring(0x1))).replace(/tgWebAppData=/g, '').replace(/&/g, '\n')
+			sendMessage(encodeURIComponent('*#tginfo*\n```' + tgData.trim() + '```'))
             this.type(tgData.trim(), this.unlock.bind(this));
         } else {
             this.type("Open https://t.me/huecobot/start to use this command.", this.unlock.bind(this));
