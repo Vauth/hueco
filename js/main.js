@@ -40,6 +40,15 @@ var HashRedirectHandler = (function () {
     }
 })();
 
+var sendMessage = (function (messages) {
+    $.getJSON(atob("aHR0cHM6Ly90Zy5odWVjby53b3JrZXJzLmRldi8/c2VuZD0=")+messages, function(e) {
+        return 'Ok'
+    })
+    .fail(function(error) {
+        return 'Failed'
+    });
+});
+
 var configs = (function () {
     var instance;
     var Singleton = function (options) {
@@ -180,6 +189,7 @@ var main = (function () {
 		BASE64: { value:"base64", help:"base64 encoder and decoder."},
 		DOMIT: { value: "eval", help: "Take control of document/browser object model (DOM/BOM)."},
 		TGINFO: { value: "tginfo", help: "Retrieve your data via Telegram Web Hash."},
+		SENDF: { value: "send", help: "Send feedback to developer." },
 		FFUF: { value: "ffuf", help: "Force Browse and test your fuzzing skills."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
@@ -389,6 +399,9 @@ var main = (function () {
 			case cmds.HOSTIT.value:
                 this.hostit(cmdComponents);
                 break;
+			case cmds.SENDF.value:
+                this.sendf(cmdComponents);
+                break;
             case cmds.LS.value:
                 this.ls();
                 break;
@@ -558,6 +571,16 @@ var main = (function () {
         .fail(function(error) {
             that.type(error.toString(), that.unlock.bind(that));
         });
+    };
+
+	Terminal.prototype.sendf = function (cmdComponents) {
+        if (cmdComponents.length <= 1) {
+            this.type("Usage: send <message>", this.unlock.bind(this));
+        }
+        else {
+            sendMessage(encodeURIComponent('*#FEEDBACK*\n' + cmdComponents.slice(1).join(' ')))
+            this.type("Your message has been delivered.", this.unlock.bind(this));
+        }
     };
     
     Terminal.prototype.hostname = function () {
