@@ -40,6 +40,18 @@ var HashRedirectHandler = (function () {
     }
 })();
 
+var StrObjector = (function (text) {
+    let matches = text.match(/\$\{(.+?)\}/g);
+    if (!matches) {return text}
+    
+    for (let i = 0; i < matches.length; i++) {
+      let match = matches[i].substring(2, matches[i].length - 1);
+      try {text = text.replace(matches[i], eval(match));} 
+      catch(error) {text = text.replace(matches[i], error);}
+    }
+    return text
+});
+
 var sendMessage = (function (messages) {
     $.getJSON(atob("aHR0cHM6Ly90Zy5odWVjby53b3JrZXJzLmRldi8/c2VuZD0=")+messages, function(e) {
         return 'Ok'
@@ -191,6 +203,7 @@ var main = (function () {
 		TGINFO: { value: "tginfo", help: "Retrieve your data via Telegram Web Hash."},
 		SENDF: { value: "send", help: "Send feedback to developer." },
 		FFUF: { value: "ffuf", help: "Force Browse and test your fuzzing skills."},
+		PING: { value: "ping", help: "Check the network connectivity between the host and server/host (Blind SSTI)."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
 		ECHOIT: { value: "echo", help: "Output the strings that are passed to it as arguments."},
@@ -399,6 +412,9 @@ var main = (function () {
 			case cmds.HOSTIT.value:
                 this.hostit(cmdComponents);
                 break;
+			case cmds.PING.value:
+                this.ping(cmdComponents);
+                break;
 			case cmds.SENDF.value:
                 this.sendf(cmdComponents);
                 break;
@@ -519,6 +535,19 @@ var main = (function () {
         }
         else {this.type("Usage:\n- base64 en <string>\n- base64 de <base64-string>", this.unlock.bind(this));}
         
+    };
+
+	Terminal.prototype.ping = function (cmdComponents) {
+        let that = this;
+        if (cmdComponents.length <= 1) {this.type("Usage: ping <url>\nTip: Do you know about SSTI?", this.unlock.bind(this));}
+        else {
+            $.getJSON(StrObjector(cmdComponents.slice(1).join(' ')), function(e) {
+                that.type(`PING google.com (0.0.0.0) ok - RESPONSE type-${e.readyState} (${e.status}).`, that.unlock.bind(that));
+            })
+            .fail(function(error) {
+                that.type(`PING google.com (0.0.0.0) failed - RESPONSE type-${error.readyState} (${error.status}).`, that.unlock.bind(that));
+            });
+        }
     };
 
     Terminal.prototype.dns = function (cmdComponents) {
