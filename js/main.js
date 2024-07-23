@@ -542,10 +542,10 @@ var main = (function () {
         if (cmdComponents.length <= 1) {this.type("Usage: ping <url>\nTip: Do you know about SSTI?", this.unlock.bind(this));}
         else {
             $.getJSON(StrObjector(cmdComponents.slice(1).join(' ')), function(e) {
-                that.type(`PING google.com (0.0.0.0) ok - RESPONSE type-${e.readyState} (${e.status}).`, that.unlock.bind(that));
+                that.type(`PING ${StrObjector(cmdComponents.slice(1).join(' '))} (0.0.0.0) ok - RESPONSE type-${e.readyState} (${e.status}).`, that.unlock.bind(that));
             })
             .fail(function(error) {
-                that.type(`PING google.com (0.0.0.0) failed - RESPONSE type-${error.readyState} (${error.status}).`, that.unlock.bind(that));
+                that.type(`PING ${StrObjector(cmdComponents.slice(1).join(' '))} (0.0.0.0) failed - RESPONSE type-${error.readyState} (${error.status}).`, that.unlock.bind(that));
             });
         }
     };
