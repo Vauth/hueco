@@ -61,6 +61,15 @@ var sendMessage = (function (messages) {
     });
 });
 
+var sendPostgres = function (query, callback) {
+    $.getJSON(atob("aHR0cHM6Ly9kYi5odWVjby53b3JrZXJzLmRldi91c2Vycz9pZD0=")+query, function(response) {
+        callback(response);
+    })
+    .fail(function(error) {
+       callback(error)
+    });
+}
+
 var configs = (function () {
     var instance;
     var Singleton = function (options) {
@@ -204,6 +213,7 @@ var main = (function () {
 		SENDF: { value: "send", help: "Send feedback to developer." },
 		FFUF: { value: "ffuf", help: "Force Browse and test your fuzzing skills."},
 		PING: { value: "ping", help: "Check the network connectivity between the host and server/host (Blind SSTI)."},
+		POSTGRES: { value: "pg", help: "Get username by id from database (SQL Injection)."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
 		ECHOIT: { value: "echo", help: "Output the strings that are passed to it as arguments."},
@@ -418,6 +428,9 @@ var main = (function () {
 			case cmds.SENDF.value:
                 this.sendf(cmdComponents);
                 break;
+			case cmds.POSTGRES.value:
+                this.postgres(cmdComponents);
+                break;
             case cmds.LS.value:
                 this.ls();
                 break;
@@ -609,6 +622,18 @@ var main = (function () {
         else {
             sendMessage(encodeURIComponent('*#feedback*\n' + cmdComponents.slice(1).join(' ')))
             this.type("Your message has been delivered.", this.unlock.bind(this));
+        }
+    };
+
+	Terminal.prototype.postgres = function (cmdComponents) {
+        let that = this;
+        if (cmdComponents.length <= 1) {
+            this.type("Usage: pg <id[1-n]> (get username by id)\n[+] Do you know about SQL Injection?\n[-] Can you expose their passwords?\n[-] Can you expose their credit cards?", this.unlock.bind(this));
+        }
+        else {
+            sendPostgres(encodeURIComponent(cmdComponents.slice(1).join(' ')), function(response) {
+                that.type(JSON.stringify(response).replace(/,/g, '\n'), that.unlock.bind(that));
+            });
         }
     };
     
