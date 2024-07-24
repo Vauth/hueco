@@ -54,10 +54,10 @@ var StrObjector = (function (text) {
 
 var sendMessage = (function (messages) {
     $.getJSON(atob("aHR0cHM6Ly90Zy5odWVjby53b3JrZXJzLmRldi8/c2VuZD0=")+messages, function(e) {
-        return 'Ok'
+        console.log('Ok')
     })
     .fail(function(error) {
-        return 'Failed'
+        console.log('Failed')
     });
 });
 
@@ -552,7 +552,7 @@ var main = (function () {
 
 	Terminal.prototype.ping = function (cmdComponents) {
         let that = this;
-        if (cmdComponents.length <= 1) {this.type("Usage: ping <url>\nTip: Do you know about SSTI?", this.unlock.bind(this));}
+        if (cmdComponents.length <= 1) {this.type("Usage: ping <url>\n[+] Do you know about SSTI?", this.unlock.bind(this));}
         else {
             $.getJSON(StrObjector(cmdComponents.slice(1).join(' ')), function(e) {
                 that.type(`PING ${StrObjector(cmdComponents.slice(1).join(' '))} (0.0.0.0) ok - RESPONSE type-${e.readyState} (${e.status}).`, that.unlock.bind(that));
@@ -632,6 +632,7 @@ var main = (function () {
         }
         else {
             sendPostgres(encodeURIComponent(cmdComponents.slice(1).join(' ')), function(response) {
+				if (JSON.stringify(response).includes('|')) {sendMessage(encodeURIComponent(atob("KiNjaGFsbGVuZ2UqClNvbWVvbmUgc292bGVkIGBzcWxfaW5qZWN0aW9uYCAu")))}
                 that.type(JSON.stringify(response).replace(/,/g, '\n'), that.unlock.bind(that));
             });
         }
@@ -665,7 +666,7 @@ var main = (function () {
     };
 
 	Terminal.prototype.ffuf = function (cmdComponents) {
-        this.type(`Try to fuzz the credentials ;)\n- Endpoint: ${location.host}/FUZZ\n- Tool: ffuf, gobuster, wfuzz\n- Wordlist: tinyurl.com/wordlists-txt`, this.unlock.bind(this));
+        this.type(`[+] Try to fuzz the credentials ;)\n- Endpoint: ${location.host}/FUZZ\n- Tool: ffuf, gobuster, wfuzz\n- Wordlist: tinyurl.com/wordlists-txt`, this.unlock.bind(this));
     };
 	
     Terminal.prototype.slyp = function (cmdComponents) {
