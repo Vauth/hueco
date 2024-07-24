@@ -213,7 +213,7 @@ var main = (function () {
 		SENDF: { value: "send", help: "Send feedback to developer." },
 		FFUF: { value: "ffuf", help: "Force Browse and test your fuzzing skills."},
 		PING: { value: "ping", help: "Check the network connectivity between the host and server/host (Blind SSTI)."},
-		POSTGRES: { value: "pg", help: "Get username by id from database (SQL Injection)."},
+		POSTGRES: { value: "pg", help: "Get username by id from postgres database (SQL Injection)."},
         DATE: { value: "date", help: configs.getInstance().date_help },
         HELP: { value: "help", help: configs.getInstance().help_help },
 		ECHOIT: { value: "echo", help: "Output the strings that are passed to it as arguments."},
