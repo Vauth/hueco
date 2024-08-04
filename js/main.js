@@ -198,6 +198,7 @@ var main = (function () {
         WHOAMI: { value: "whoami", help: configs.getInstance().whoami_help },
         IP: { value:"ip", help:"Get current ip address."},
 		FCIP: { value:"fcip", help:"Fresh cloudflare IP generator ABAN."},
+		WUP: { value:"writeup", help:"Move to my write-ups directory."},
 		SOMNIUM: { value:"somnium", help:"Create beautiful artwork using the power of AI."},
 		V2RAY: { value:"v2ray", help:"Get alive v2ray configs (VM, VL, TR, SS)."},
         HOSTNAME: { value:"hostname", help:"This command can get or set the host name or the NIS domain name."},
@@ -433,6 +434,9 @@ var main = (function () {
                 break;
             case cmds.LS.value:
                 this.ls();
+                break;
+			case cmds.WUP.value:
+                this.wup();
                 break;
 			case cmds.FFUF.value:
                 this.ffuf();
@@ -681,6 +685,11 @@ var main = (function () {
 	
     Terminal.prototype.fcip = function (cmdComponents) {
 	location.replace(`https://${configs.getInstance().host}/fcip`)
+        this.type("Running...", this.unlock.bind(this));
+    };
+
+	Terminal.prototype.wup = function (cmdComponents) {
+	location.replace(`https://${configs.getInstance().host}/writeup`)
         this.type("Running...", this.unlock.bind(this));
     };
 
