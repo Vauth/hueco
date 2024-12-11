@@ -146,6 +146,7 @@ var files = (function () {
 		"music.txt": "https://t.me/+OpbNeduAS0cwMmY8",
         "github.txt":"https://github.com/vauth",
 		"cloud.txt":"https://index.ivuxy.workers.dev",
+	    "somnium-logs.txt": "https://t.me/+YN4fYMghRvkwMTgx",
     };
     return {
         getInstance: function (options) {
