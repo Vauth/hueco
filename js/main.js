@@ -139,6 +139,7 @@ var files = (function () {
     	".cache":"None",
 		"endpoint.txt":"- /?mode=[cat|uwu|pro|lux]\n- /?q=[me|help]\n- /?alert=[text]\n- /[#|?url=]https://google.com",
 		"pypi.whl":"https://pypi.org/user/ivuxy",
+		"cc.txt": "https://checker.ivuxy.me",
 		"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
         "README.md": "PyGeek, GUI, Web development, Automation, ML, Data integration, BB & etc.",
         "mail.txt": "odium@disroot.org",
