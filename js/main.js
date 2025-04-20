@@ -134,20 +134,20 @@ var files = (function () {
         }
     };
     Singleton.defaultOptions = {
+		".cache":"None",
     	"welcome.txt":"Get out.",
     	"config.py":"class Production(Config): LOGGER = True",
-    	".cache":"None",
+		"WTF.txt":"Type 'help' for more details.",
 		"endpoint.txt":"- /?mode=[cat|uwu|pro|lux]\n- /?q=[me|help]\n- /?alert=[text]\n- /[#|?url=]https://google.com",
 		"pypi.whl":"https://pypi.org/user/ivuxy",
-		"cc.txt": "https://checker.ivuxy.me",
 		"ascii.txt":"░░░░░░░░░░░░░░░░░░░░░\n░░██████░░██████░░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░██░░░░██░██░░░██░██░\n░░██████░░██████░░██░\n░░░░░░░░░░░░░░░░░░░░░",
         "README.md": "PyGeek, GUI, Web development, Automation, ML, Data integration, BB & etc.",
         "mail.txt": "odium@disroot.org",
         "telegram.txt": "https://feelded.t.me",
 		"music.txt": "https://t.me/+OpbNeduAS0cwMmY8",
         "github.txt":"https://github.com/vauth",
-		"cloud.txt":"https://index.ivuxy.workers.dev",
 	    "somnium-logs.txt": "https://t.me/+YN4fYMghRvkwMTgx",
+		"duckgpt.txt":"https://duckgpt.live",
     };
     return {
         getInstance: function (options) {
